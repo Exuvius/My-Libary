@@ -23,4 +23,5 @@ export const dataAuthors: Author[] = [
   {"id":"auth_xin_qi_ji","nameViet":"Tân Khí Tật","nameHan":"辛弃疾","dynasty":"Tống","bio":"Từ nhân hào phóng vĩ đại nhất đời Nam Tống, anh hùng kháng Kim, hiệu Giá Hiên"},
   {"id":"auth_yu_xuan_ji","nameViet":"Ngư Huyền Cơ","nameHan":"鱼玄机","dynasty":"Đường","bio":"Nữ thi sĩ, đạo sĩ thời Vãn Đường, nổi tiếng với câu thơ bất hủ về tình yêu (khoảng 844–871)."},
   {"id":"auth_zhu_shu_zhen","nameViet":"Chu Thục Chân","nameHan":"朱淑真","dynasty":"Tống","bio":"Nữ thi sĩ đời Tống, được mệnh danh Hồng Diễm thi nhân, tác phẩm để lại Đoạn Tràng Tập"},
+  {"id":"auth_lao_tu","nameViet":"Lão Tử","nameHan":"老子","era":"~571–471 TCN","dynasty":"Xuân Thu","bio":"Nhà triết học cổ đại thời Xuân Thu, tác giả Đạo Đức Kinh."},
 ];

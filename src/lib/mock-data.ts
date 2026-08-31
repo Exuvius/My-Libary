@@ -14,6 +14,7 @@ import {
 import {
   ttkSentences, lnSentences, ttvSentences, bgtSentences, poetSentences,
   ttkChapters, lnChapters, ttvChapters, bgtChapters, poetChapters,
+  ddkSentences, ddkChapters,
 } from "@/data";
 import { dataAnnotations } from "@/data/library/annotations";
 
@@ -56,7 +57,6 @@ export const entries: Entry[] = realEntries;
 // Real authors come from data/library/authors.ts (converted from database).
 // Mock-only authors fill in works that don't have real data yet (Kinh Thi, Đạo Đức Kinh, etc.)
 const mockOnlyAuthors: Author[] = [
-  { id: "a2", nameViet: "Lão Tử", nameHan: "老子", era: "~571–471 TCN", dynasty: "Xuân Thu", bio: "Nhà triết học, người sáng lập Đạo giáo, tác giả Đạo Đức Kinh." },
   { id: "a3", nameViet: "Khuyết danh", era: "~1000–600 TCN", dynasty: "Tây Chu – Xuân Thu", bio: "Kinh Thi được sưu tập và biên soạn qua nhiều thời kỳ." },
   { id: "a4", nameViet: "Tư Mã Thiên", nameHan: "司馬遷", era: "145–86 TCN", dynasty: "Tây Hán", bio: "Sử gia vĩ đại, tác giả Sử Ký." },
   { id: "a5", nameViet: "Nguyễn Du", nameHan: "阮攸", era: "1766–1820", dynasty: "Nguyễn", bio: "Đại thi hào dân tộc Việt Nam, tác giả Truyện Kiều." },
@@ -84,32 +84,26 @@ const resolvedRealWorks: Work[] = dataWorks.map((w) => ({
 const mockOnlyWorks: Work[] = [
   {
     id: "w1", titleViet: "Kinh Thi", titleHan: "詩經", authorId: "a3",
-    author: mockOnlyAuthors[1], sourceInfo: "Bản Mao Thi 毛詩, đời Hán",
+    author: mockOnlyAuthors[0], sourceInfo: "Bản Mao Thi 毛詩, đời Hán",
     chapterCount: 305, characterCount: 39234, language: "han_van",
     isPublished: true, iconChar: "詩",
     tags: [tags[0], tags[5], tags[10], tags[18]], progressPercent: 0.12,
   },
   {
-    id: "w3", titleViet: "Đạo Đức Kinh", titleHan: "道德經", authorId: "a2",
-    author: mockOnlyAuthors[0], chapterCount: 81, characterCount: 5162,
-    language: "han_van", isPublished: true, iconChar: "道",
-    tags: [tags[0], tags[6], tags[10], tags[18]], progressPercent: 0,
-  },
-  {
     id: "w4", titleViet: "Sử Ký", titleHan: "史記", authorId: "a4",
-    author: mockOnlyAuthors[2], chapterCount: 130, characterCount: 526500,
+    author: mockOnlyAuthors[1], chapterCount: 130, characterCount: 526500,
     language: "han_van", isPublished: true, iconChar: "史",
     tags: [tags[2], tags[7], tags[12], tags[18]], progressPercent: 0,
   },
   {
     id: "w5", titleViet: "Truyện Kiều", titleHan: "傳翹", authorId: "a5",
-    author: mockOnlyAuthors[3], chapterCount: 1, characterCount: 22778,
+    author: mockOnlyAuthors[2], chapterCount: 1, characterCount: 22778,
     language: "han_nom", isPublished: true, iconChar: "翹",
     tags: [tags[4], tags[8], tags[17], tags[19]], progressPercent: 0.68,
   },
   {
     id: "w6", titleViet: "Bình Ngô Đại Cáo", titleHan: "平吳大誥", authorId: "a6",
-    author: mockOnlyAuthors[4], chapterCount: 1, characterCount: 1680,
+    author: mockOnlyAuthors[3], chapterCount: 1, characterCount: 1680,
     language: "han_van", isPublished: true, iconChar: "平",
     tags: [tags[4], tags[9], tags[16], tags[18]], progressPercent: 1.0,
   },
@@ -234,8 +228,8 @@ export function getTagsByCategory(category: string): Tag[] {
 
 // Flatten all works' sentences/chapters into single arrays for corpus-wide search.
 // Used by getCitationsForCharacter() to find example usages across the entire library.
-const _allCorpusSentences = [...ttkSentences, ...lnSentences, ...ttvSentences, ...bgtSentences, ...poetSentences, ...kiemGiaSentences];
-const _allCorpusChapters = [...ttkChapters, ...lnChapters, ...ttvChapters, ...bgtChapters, ...poetChapters, ...kinhThiChapters];
+const _allCorpusSentences = [...ttkSentences, ...lnSentences, ...ttvSentences, ...bgtSentences, ...poetSentences, ...ddkSentences, ...kiemGiaSentences];
+const _allCorpusChapters = [...ttkChapters, ...lnChapters, ...ttvChapters, ...bgtChapters, ...poetChapters, ...ddkChapters, ...kinhThiChapters];
 const _chapterMap = new Map(_allCorpusChapters.map(c => [c.id, c]));
 
 export interface CitationResult {

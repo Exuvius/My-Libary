@@ -24,4 +24,5 @@ export const dataWorks: (Omit<Work, "author" | "tags"> & { tagIds: string[] })[]
   {"id":"work_xin_qi_ji","titleViet":"Thơ Tân Khí Tật","titleHan":"辛弃疾诗集","authorId":"auth_xin_qi_ji","chapterCount":15,"characterCount":1085,"language":"han_van","isPublished":true,"iconChar":"辛","progressPercent":0,"tagIds":["t5","t6","t15","t19"]},
   {"id":"work_yu_xuan_ji","titleViet":"Thơ Ngư Huyền Cơ","titleHan":"鱼玄机诗集","authorId":"auth_yu_xuan_ji","chapterCount":8,"characterCount":368,"language":"han_van","isPublished":true,"iconChar":"鱼","progressPercent":0,"tagIds":["t5","t6","t14","t19"]},
   {"id":"work_zhu_shu_zhen","titleViet":"Thơ Chu Thục Chân","titleHan":"朱淑真诗集","authorId":"auth_zhu_shu_zhen","chapterCount":15,"characterCount":671,"language":"han_van","isPublished":true,"iconChar":"朱","progressPercent":0,"tagIds":["t5","t6","t15","t19"]},
+  {"id":"work_ddk","titleViet":"Đạo Đức Kinh","titleHan":"道德經","authorId":"auth_lao_tu","chapterCount":81,"characterCount":5162,"language":"han_van","isPublished":true,"iconChar":"道","progressPercent":0,"tagIds":["t1","t7","t11","t19"]},
 ];
