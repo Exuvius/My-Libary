@@ -1,0 +1,26 @@
+import type { Author } from "@/types/library";
+
+export const dataAuthors: Author[] = [
+  {"id":"auth_thien_tu_van","nameViet":"Chu Hưng Tự","nameHan":"周興嗣","dynasty":"Nam Triều Lương"},
+  {"id":"auth_bach_gia_tinh","nameViet":"Khuyết danh","nameHan":"佚名","dynasty":"Bắc Tống"},
+  {"id":"auth_confucius","nameViet":"Khổng Tử","nameHan":"孔子","era":"551–479 TCN","dynasty":"Xuân Thu","bio":"Nhà tư tưởng, nhà giáo dục vĩ đại. Sáng lập Nho giáo."},
+  {"id":"auth_bai_ju_yi","nameViet":"Bạch Cư Dị","nameHan":"白居易","dynasty":"Đường","bio":"Thi Ma (诗魔), nhà thơ hiện thực lớn đời Đường, nổi tiếng thơ dễ hiểu (772–846)."},
+  {"id":"auth_du_fu","nameViet":"Đỗ Phủ","nameHan":"杜甫","dynasty":"Đường","bio":"Thi Thánh (诗圣), nhà thơ hiện thực vĩ đại nhất đời Đường (712–770)."},
+  {"id":"auth_fan_zhong_yan","nameViet":"Phạm Trọng Yêm","nameHan":"范仲淹","dynasty":"Tống","bio":"Chính trị gia, văn học gia, nhà quân sự đời Bắc Tống, tác giả câu tiên thiên hạ chi ưu nhi ưu"},
+  {"id":"auth_han_yu","nameViet":"Hàn Dũ","nameHan":"韩愈","dynasty":"Đường","bio":"Đại văn hào đời Đường, lãnh tụ phong trào Cổ Văn, được tôn là Hàn Xương Lê, thụy Văn Công"},
+  {"id":"auth_liu_zong_yuan","nameViet":"Liễu Tông Nguyên","nameHan":"柳宗元","dynasty":"Đường","bio":"Đại văn hào đời Đường, một trong Đường Tống bát đại gia, cùng Hàn Dũ xưng Hàn Liễu"},
+  {"id":"auth_li_bai","nameViet":"Lý Bạch","nameHan":"李白","dynasty":"Đường","bio":"Thi Tiên (诗仙), nhà thơ lãng mạn vĩ đại nhất đời Đường (701–762)."},
+  {"id":"auth_li_qing_zhao","nameViet":"Lý Thanh Chiếu","nameHan":"李清照","dynasty":"Tống","bio":"Nữ từ nhân kiệt xuất đời Tống, hiệu Dịch An cư sĩ, nổi tiếng với phong cách uyển ước tinh tế, được tôn là Thiên cổ đệ nhất tài nữ"},
+  {"id":"auth_li_shang_yin","nameViet":"Lý Thương Ẩn","nameHan":"李商隐","dynasty":"Đường","bio":"Tiểu Lý Đỗ, phong cách uyển chuyển, hàm súc, giàu điển cố (812–858)."},
+  {"id":"auth_ouyang_xiu","nameViet":"Âu Dương Tu","nameHan":"欧阳修","dynasty":"Tống","bio":"Chính trị gia, văn học gia kiệt xuất đời Tống, lãnh tụ phong trào cổ văn, một trong Đường Tống bát đại gia"},
+  {"id":"auth_shang_guan_wan_er","nameViet":"Thượng Quan Uyển Nhi","nameHan":"上官婉儿","dynasty":"Đường","bio":"Nữ quan, nhà thơ nổi tiếng thời Sơ Đường, cháu nội danh tướng Thượng Quan Nghi, được Võ Tắc Thiên trọng dụng (664–710)."},
+  {"id":"auth_su_shi","nameViet":"Tô Thức (Tô Đông Pha)","nameHan":"苏轼","dynasty":"Tống","bio":"Tự Tử Chiêm, hiệu Đông Pha cư sĩ, đại văn hào Bắc Tống, cùng cha và em hợp thành Tam Tô (1037–1101)."},
+  {"id":"auth_su_xun","nameViet":"Tô Tuân","nameHan":"苏洵","dynasty":"Tống","bio":"Văn hào đời Bắc Tống, một trong Đường Tống bát đại gia, cha của Tô Thức và Tô Triệt, gọi chung Tam Tô"},
+  {"id":"auth_tang_bo_hu","nameViet":"Đường Bá Hổ","nameHan":"唐伯虎","dynasty":"Minh","bio":"Họa sĩ, thi nhân tài hoa đời Minh, một trong Giang Nam tứ đại tài tử, hiệu Lục Như cư sĩ"},
+  {"id":"auth_wang_an_shi","nameViet":"Vương An Thạch","nameHan":"王安石","dynasty":"Tống","bio":"Nhà tư tưởng, chính trị gia, nhà cải cách kiệt xuất đời Bắc Tống, đứng đầu Đường Tống bát đại gia"},
+  {"id":"auth_wang_wei","nameViet":"Vương Duy","nameHan":"王维","dynasty":"Đường","bio":"Thi Phật (诗佛), nhà thơ thiền tịnh, họa sĩ đời Đường (701–761)."},
+  {"id":"auth_wu_ze_tian","nameViet":"Võ Tắc Thiên","nameHan":"武则天","dynasty":"Đường","bio":"Nữ hoàng đế duy nhất trong lịch sử Trung Hoa, trị vì nhà Võ Chu, phong cách thơ đa dạng (624–705)."},
+  {"id":"auth_xin_qi_ji","nameViet":"Tân Khí Tật","nameHan":"辛弃疾","dynasty":"Tống","bio":"Từ nhân hào phóng vĩ đại nhất đời Nam Tống, anh hùng kháng Kim, hiệu Giá Hiên"},
+  {"id":"auth_yu_xuan_ji","nameViet":"Ngư Huyền Cơ","nameHan":"鱼玄机","dynasty":"Đường","bio":"Nữ thi sĩ, đạo sĩ thời Vãn Đường, nổi tiếng với câu thơ bất hủ về tình yêu (khoảng 844–871)."},
+  {"id":"auth_zhu_shu_zhen","nameViet":"Chu Thục Chân","nameHan":"朱淑真","dynasty":"Tống","bio":"Nữ thi sĩ đời Tống, được mệnh danh Hồng Diễm thi nhân, tác phẩm để lại Đoạn Tràng Tập"},
+];

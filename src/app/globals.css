@@ -1,26 +1,247 @@
 @import "tailwindcss";
 
+/*
+ * Color system: warm parchment palette inspired by classical Chinese manuscripts.
+ * Light mode is the default (:root), dark mode via [data-theme="dark"] and
+ * prefers-color-scheme media query. Tailwind v4 reads --color-* tokens
+ * automatically (e.g. --color-text-body → text-text-body utility).
+ */
+
+/* ===== LIGHT MODE (default) ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #FAF6EF;
+  --bg-secondary: #F3ECE0;
+  --bg-tertiary: #F7F1E6;
+  --bg-subtle: #F5EFE4;
+  --bg-page: #EDE5D8;
+
+  --text-primary: #2C2418;
+  --text-secondary: #3D3020;
+  --text-body: #5C4A2E;
+  --text-muted: #8B7355;
+  --text-faint: #9B8560;
+  --text-ghost: #B8A080;
+
+  --accent-gold: #C4982E;
+  --accent-dark: #7A5C1F;
+  --accent-tag-bg: #E6DABD;
+  --accent-tag-text: #6B5020;
+
+  --border-main: #E0D5C0;
+  --border-light: #E8DFD0;
+  --border-subtle: #EDE8DC;
+
+  --annotation-border: #C4982E;
+  --annotation-bg: #F0E8D8;
+  --comment-border: #A0B8A0;
+  --comment-bg: #FAFAF5;
+  --comment-text: #5A6A5A;
+
+  --lang-tag-bg: #D8E4D0;
+  --lang-tag-text: #4A6A3A;
+  --pinyin-color: #5A7A5A;
+  --hanviet-color: #7A5C1F;
+  --stamp-red: #C4643A;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 28px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* ===== DARK MODE via prefers-color-scheme (system default) ===== */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --bg-primary: #1E1E22;
+    --bg-secondary: #252528;
+    --bg-tertiary: #2A2A30;
+    --bg-subtle: #2A2A30;
+    --bg-page: #1A1A1E;
+
+    --text-primary: #F0E8D8;
+    --text-secondary: #E0D8C8;
+    --text-body: #D0C8BA;
+    --text-muted: #8A8070;
+    --text-faint: #7A7060;
+    --text-ghost: #5A5548;
+
+    --accent-gold: #D4A855;
+    --accent-dark: #C9B678;
+    --accent-tag-bg: #2E2E35;
+    --accent-tag-text: #C9B678;
+
+    --border-main: #333338;
+    --border-light: #3A3A42;
+    --border-subtle: #2E2E35;
+
+    --annotation-border: #D4A855;
+    --annotation-bg: #2A2820;
+    --comment-border: #5A7A5A;
+    --comment-bg: #222228;
+    --comment-text: #8AA08A;
+
+    --lang-tag-bg: #252A22;
+    --lang-tag-text: #8AAA7A;
+    --pinyin-color: #7A9A7A;
+    --hanviet-color: #C9B678;
+    --stamp-red: #D47A5A;
   }
 }
 
+/* ===== DARK MODE via explicit data-theme ===== */
+:root[data-theme="dark"] {
+  --bg-primary: #1E1E22;
+  --bg-secondary: #252528;
+  --bg-tertiary: #2A2A30;
+  --bg-subtle: #2A2A30;
+  --bg-page: #1A1A1E;
+
+  --text-primary: #F0E8D8;
+  --text-secondary: #E0D8C8;
+  --text-body: #D0C8BA;
+  --text-muted: #8A8070;
+  --text-faint: #7A7060;
+  --text-ghost: #5A5548;
+
+  --accent-gold: #D4A855;
+  --accent-dark: #C9B678;
+  --accent-tag-bg: #2E2E35;
+  --accent-tag-text: #C9B678;
+
+  --border-main: #333338;
+  --border-light: #3A3A42;
+  --border-subtle: #2E2E35;
+
+  --annotation-border: #D4A855;
+  --annotation-bg: #2A2820;
+  --comment-border: #5A7A5A;
+  --comment-bg: #222228;
+  --comment-text: #8AA08A;
+
+  --lang-tag-bg: #252A22;
+  --lang-tag-text: #8AAA7A;
+  --pinyin-color: #7A9A7A;
+  --hanviet-color: #C9B678;
+  --stamp-red: #D47A5A;
+}
+
+/* ===== Tailwind theme integration ===== */
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-page: var(--bg-page);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-text-ghost: var(--text-ghost);
+
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-tag-bg: var(--accent-tag-bg);
+  --color-accent-tag-text: var(--accent-tag-text);
+
+  --color-border-main: var(--border-main);
+  --color-border-light: var(--border-light);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-annotation-border: var(--annotation-border);
+  --color-annotation-bg: var(--annotation-bg);
+  --color-comment-border: var(--comment-border);
+  --color-comment-bg: var(--comment-bg);
+  --color-comment-text: var(--comment-text);
+
+  --color-lang-tag-bg: var(--lang-tag-bg);
+  --color-lang-tag-text: var(--lang-tag-text);
+  --color-pinyin: var(--pinyin-color);
+  --color-hanviet: var(--hanviet-color);
+  --color-stamp-red: var(--stamp-red);
+
+  --font-sans: -apple-system, 'Segoe UI', 'Noto Sans', sans-serif;
+  /* Pinyin needs a Latin font with proper diacritic support — CJK fonts
+     render tone marks (ā é ǐ ò ǖ) inconsistently or with wrong metrics */
+  --font-pinyin: 'Segoe UI', 'Noto Sans', -apple-system, system-ui, sans-serif;
+  /* Three CJK font stacks matching the FAB panel's 明/楷/黑 selector */
+  --font-han-kai: 'LXGW WenKai', 'Noto Serif SC', serif;
+  --font-han-ming: 'Noto Serif SC', 'LXGW WenKai', serif;
+  --font-han-hei: 'Noto Sans SC', 'LXGW WenKai', sans-serif;
+}
+
+/* ===== BASE STYLES ===== */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+}
+
+/* ===== DIVIDER - brush stroke ===== */
+.divider-brush {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-main) 15%,
+    var(--text-muted) 50%,
+    var(--border-main) 85%,
+    transparent 100%
+  );
+  border-radius: 2px;
+  opacity: 0.6;
+  margin: 16px 0;
+}
+
+/* ===== CLASSICAL TITLE BRACKETS ===== */
+.title-classical::before {
+  content: '「 ';
+  color: var(--accent-gold);
+  font-weight: 400;
+}
+.title-classical::after {
+  content: ' 」';
+  color: var(--accent-gold);
+  font-weight: 400;
+}
+
+/* ===== RUBY TEXT ===== */
+ruby {
+  ruby-align: center;
+}
+ruby rt {
+  font-size: 9.5px;
+  font-weight: 500;
+  line-height: 1;
+}
+ruby rt.pinyin {
+  color: var(--pinyin-color);
+  font-style: italic;
+  font-family: var(--font-pinyin);
+}
+ruby rt.hanviet {
+  color: var(--hanviet-color);
+}
+
+/* ===== PINYIN FONT ===== */
+.text-pinyin {
+  font-family: var(--font-pinyin);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-main);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-ghost);
 }
