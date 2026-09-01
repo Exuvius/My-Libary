@@ -12,6 +12,7 @@ interface ReadingToggles {
   translation: boolean;
   annotations: boolean;
   comments: boolean;
+  highlightUnknown: boolean;
 }
 
 interface AppState {
@@ -33,6 +34,7 @@ export const useAppStore = create<AppState>()(persist((set) => ({
     translation: true,
     annotations: false,
     comments: false,
+    highlightUnknown: false,
   },
   setToggle: (key, value) =>
     set((state) => ({

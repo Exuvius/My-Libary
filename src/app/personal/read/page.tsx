@@ -222,6 +222,10 @@ function PersonalReadingContent() {
     const reading = charData?.readings[0];
     const pinyinRuby = reading?.pinyin || pEntry?.pinyin;
     const hanVietRuby = reading?.hanViet || pEntry?.hanViet;
+    const isUnknown = !charData && !pEntry;
+    const unknownHighlight = toggles.highlightUnknown && isUnknown
+      ? "bg-red-500/15 rounded-sm ring-1 ring-red-400/40"
+      : "";
 
     return (
       <PersonalCharTooltip key={idx} character={ch} charData={charData} personalEntry={pEntry}>
@@ -240,7 +244,7 @@ function PersonalReadingContent() {
               ) : null}
             </span>
           )}
-          <span className="text-[20px] leading-snug">{displayChar}</span>
+          <span className={`text-[20px] leading-snug ${unknownHighlight}`}>{displayChar}</span>
         </span>
       </PersonalCharTooltip>
     );

@@ -126,6 +126,10 @@ function ReadingContent({ workId }: { workId: string }) {
       );
     }
 
+    const unknownHighlight = toggles.highlightUnknown
+      ? "bg-red-500/15 rounded-sm ring-1 ring-red-400/40"
+      : "";
+
     return (
       <CharTooltip key={idx} character={ch} personalEntry={pEntry}>
         <span className="inline-block text-center">
@@ -135,7 +139,7 @@ function ReadingContent({ workId }: { workId: string }) {
               {toggles.hanViet && <span className="block">·</span>}
             </span>
           )}
-          <span className="text-[20px] leading-snug">{displayChar}</span>
+          <span className={`text-[20px] leading-snug ${unknownHighlight}`}>{displayChar}</span>
         </span>
       </CharTooltip>
     );

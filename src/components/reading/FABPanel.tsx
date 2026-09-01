@@ -10,6 +10,7 @@ interface ReadingToggles {
   translation: boolean;
   annotations: boolean;
   comments: boolean;
+  highlightUnknown: boolean;
 }
 
 const toggleItems: { key: keyof ReadingToggles; label: string }[] = [
@@ -188,6 +189,27 @@ export function FABPanel() {
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Divider */}
+          <div className="h-px bg-border-subtle" />
+
+          {/* Section 5: Tools */}
+          <div>
+            <p className="text-[10px] text-text-ghost uppercase tracking-wider mb-2">
+              Công cụ
+            </p>
+            <button
+              onClick={() => setToggle("highlightUnknown", !toggles.highlightUnknown)}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
+                toggles.highlightUnknown
+                  ? "bg-red-500/10 border border-red-400/40 text-red-600"
+                  : "bg-bg-secondary border border-transparent text-text-muted hover:bg-bg-subtle"
+              }`}
+            >
+              <span className="text-base leading-none">?</span>
+              <span>Đánh dấu chữ chưa biết</span>
+            </button>
           </div>
         </div>
       )}
