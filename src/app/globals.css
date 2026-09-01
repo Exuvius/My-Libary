@@ -167,9 +167,9 @@
      render tone marks (ā é ǐ ò ǖ) inconsistently or with wrong metrics */
   --font-pinyin: 'Segoe UI', 'Noto Sans', -apple-system, system-ui, sans-serif;
   /* Three CJK font stacks matching the FAB panel's 明/楷/黑 selector */
-  --font-han-kai: 'LXGW WenKai', 'Noto Serif SC', serif;
-  --font-han-ming: 'Noto Serif SC', 'LXGW WenKai', serif;
-  --font-han-hei: 'Noto Sans SC', 'LXGW WenKai', sans-serif;
+  --font-han-kai: 'LXGW WenKai TC', 'Noto Serif SC', serif;
+  --font-han-ming: 'Noto Serif SC', 'LXGW WenKai TC', serif;
+  --font-han-hei: 'Noto Sans SC', 'LXGW WenKai TC', sans-serif;
 }
 
 /* ===== BASE STYLES ===== */
@@ -244,4 +244,15 @@ ruby rt.hanviet {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-ghost);
+}
+
+/* ===== CJK FONT UTILITIES ===== */
+@utility font-han-ming {
+  font-family: var(--font-han-ming);
+}
+@utility font-han-kai {
+  font-family: var(--font-han-kai);
+}
+@utility font-han-hei {
+  font-family: var(--font-han-hei);
 }

@@ -24,6 +24,7 @@ function PersonalReadingContent() {
   const fontPreference = useAppStore((s) => s.fontPreference);
   const textAlign = useAppStore((s) => s.textAlign);
   const scriptPreference = useAppStore((s) => s.scriptPreference);
+  const toggles = useAppStore((s) => s.toggles);
 
   const fontClass =
     fontPreference === "kai"
@@ -38,6 +39,8 @@ function PersonalReadingContent() {
       : textAlign === "right"
       ? "justify-end"
       : "justify-start";
+
+  const rubyActive = toggles.hanViet || toggles.pinyin;
 
   useEffect(() => {
     if (!docId) {
@@ -209,15 +212,34 @@ function PersonalReadingContent() {
 
     const charData =
       charLookup.byTrad.get(ch) || charLookup.bySimp.get(ch);
+    const pEntry = personalDict.get(ch);
 
     const displayChar =
       scriptPreference === "simplified"
         ? charData?.simplified || ch
         : charData?.traditional || ch;
 
+    const reading = charData?.readings[0];
+    const pinyinRuby = reading?.pinyin || pEntry?.pinyin;
+    const hanVietRuby = reading?.hanViet || pEntry?.hanViet;
+
     return (
-      <PersonalCharTooltip key={idx} character={ch} charData={charData} personalEntry={personalDict.get(ch)}>
+      <PersonalCharTooltip key={idx} character={ch} charData={charData} personalEntry={pEntry}>
         <span className="inline-block text-center">
+          {(toggles.pinyin || toggles.hanViet) && (
+            <span className="block text-[9.5px] leading-tight mb-0.5">
+              {toggles.pinyin && pinyinRuby ? (
+                <span className="text-pinyin italic block">{pinyinRuby}</span>
+              ) : toggles.pinyin ? (
+                <span className="block opacity-0">·</span>
+              ) : null}
+              {toggles.hanViet && hanVietRuby ? (
+                <span className="text-hanviet block">{hanVietRuby}</span>
+              ) : toggles.hanViet ? (
+                <span className="block opacity-0">·</span>
+              ) : null}
+            </span>
+          )}
           <span className="text-[20px] leading-snug">{displayChar}</span>
         </span>
       </PersonalCharTooltip>
@@ -271,7 +293,7 @@ function PersonalReadingContent() {
             data-para-idx={pIdx}
             className={`${
               pIdx > 0 ? "mt-6" : ""
-            } flex flex-wrap items-end tracking-wide leading-loose ${fontClass} ${alignClass} gap-x-[2px]`}
+            } flex flex-wrap items-end tracking-wide leading-loose ${fontClass} ${alignClass} ${rubyActive ? "gap-x-[6px] gap-y-1" : "gap-x-[2px]"}`}
           >
             {[...para].map((ch, i) => renderChar(ch, i))}
           </div>
