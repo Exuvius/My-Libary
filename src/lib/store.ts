@@ -1,7 +1,8 @@
 "use client";
 
 import { create } from "zustand";
-import type { FontPreference } from "@/types/user";
+import { persist } from "zustand/middleware";
+import type { FontPreference, TextAlign } from "@/types/user";
 
 export type ScriptPreference = "traditional" | "simplified";
 
@@ -21,9 +22,11 @@ interface AppState {
   scriptPreference: ScriptPreference;
   setScriptPreference: (script: ScriptPreference) => void;
   toggleScriptPreference: () => void;
+  textAlign: TextAlign;
+  setTextAlign: (align: TextAlign) => void;
 }
 
-export const useAppStore = create<AppState>((set) => ({
+export const useAppStore = create<AppState>()(persist((set) => ({
   toggles: {
     hanViet: true,
     pinyin: false,
@@ -43,4 +46,6 @@ export const useAppStore = create<AppState>((set) => ({
     set((state) => ({
       scriptPreference: state.scriptPreference === "traditional" ? "simplified" : "traditional",
     })),
-}));
+  textAlign: "left",
+  setTextAlign: (align) => set({ textAlign: align }),
+}), { name: "handien-settings" }));

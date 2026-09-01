@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useAppStore } from "@/lib/store";
-import type { FontPreference } from "@/types/user";
+import type { FontPreference, TextAlign } from "@/types/user";
 
 interface ReadingToggles {
   hanViet: boolean;
@@ -26,6 +26,12 @@ const fontOptions: { key: FontPreference; label: string; char: string }[] = [
   { key: "gothic", label: "Hắc thể", char: "黑" },
 ];
 
+const alignOptions: { key: TextAlign; label: string }[] = [
+  { key: "left", label: "Trái" },
+  { key: "center", label: "Giữa" },
+  { key: "right", label: "Phải" },
+];
+
 export function FABPanel() {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -35,6 +41,8 @@ export function FABPanel() {
   const setFontPreference = useAppStore((s) => s.setFontPreference);
   const scriptPreference = useAppStore((s) => s.scriptPreference);
   const toggleScriptPreference = useAppStore((s) => s.toggleScriptPreference);
+  const textAlign = useAppStore((s) => s.textAlign);
+  const setTextAlign = useAppStore((s) => s.setTextAlign);
 
   // Close panel on click-outside. The FAB button uses stopPropagation
   // so this handler won't fire when toggling the panel itself.
@@ -101,7 +109,55 @@ export function FABPanel() {
           {/* Divider */}
           <div className="h-px bg-border-subtle" />
 
-          {/* Section 3: Font */}
+          {/* Section 3: Alignment */}
+          <div>
+            <p className="text-[10px] text-text-ghost uppercase tracking-wider mb-2">
+              Căn lề
+            </p>
+            <div className="flex gap-2">
+              {alignOptions.map((opt) => (
+                <button
+                  key={opt.key}
+                  onClick={() => setTextAlign(opt.key)}
+                  className={`flex-1 flex flex-col items-center py-2 rounded-xl text-xs transition-colors ${
+                    textAlign === opt.key
+                      ? "bg-bg-subtle border border-accent-gold text-text-primary"
+                      : "bg-bg-secondary border border-transparent text-text-muted hover:bg-bg-subtle"
+                  }`}
+                >
+                  <svg width="16" height="12" viewBox="0 0 16 12" className="mb-0.5" fill="currentColor">
+                    {opt.key === "left" && (
+                      <>
+                        <rect x="0" y="0" width="14" height="2" rx="1" />
+                        <rect x="0" y="5" width="10" height="2" rx="1" />
+                        <rect x="0" y="10" width="12" height="2" rx="1" />
+                      </>
+                    )}
+                    {opt.key === "center" && (
+                      <>
+                        <rect x="1" y="0" width="14" height="2" rx="1" />
+                        <rect x="3" y="5" width="10" height="2" rx="1" />
+                        <rect x="2" y="10" width="12" height="2" rx="1" />
+                      </>
+                    )}
+                    {opt.key === "right" && (
+                      <>
+                        <rect x="2" y="0" width="14" height="2" rx="1" />
+                        <rect x="6" y="5" width="10" height="2" rx="1" />
+                        <rect x="4" y="10" width="12" height="2" rx="1" />
+                      </>
+                    )}
+                  </svg>
+                  <span className="text-[10px]">{opt.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="h-px bg-border-subtle" />
+
+          {/* Section 4: Font */}
           <div>
             <p className="text-[10px] text-text-ghost uppercase tracking-wider mb-2">
               Font đọc

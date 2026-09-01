@@ -1,5 +1,6 @@
 export type FontPreference = "ming" | "kai" | "gothic";
 export type ThemePreference = "light" | "dark" | "system";
+export type TextAlign = "left" | "center" | "right";
 
 export interface Profile {
   id: string;

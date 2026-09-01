@@ -5,7 +5,7 @@ export default function BrowseLayout({ children }: { children: React.ReactNode }
   return (
     <div className="flex min-h-screen bg-bg-page">
       <Sidebar />
-      <main className="flex-1 pb-16 md:pb-0">
+      <main className="flex-1 min-w-0 pb-16 md:pb-0 overflow-x-hidden">
         {children}
       </main>
       <TabBar />

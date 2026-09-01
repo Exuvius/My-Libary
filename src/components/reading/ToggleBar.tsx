@@ -3,20 +3,10 @@
 import { useAppStore } from "@/lib/store";
 import { ToggleChip } from "@/components/ui/ToggleChip";
 
-interface ReadingToggles {
-  hanViet: boolean;
-  pinyin: boolean;
-  translation: boolean;
-  simplified: boolean;
-  annotations: boolean;
-  comments: boolean;
-}
-
-const toggleItems: { key: keyof ReadingToggles; label: string }[] = [
+const toggleItems: { key: "hanViet" | "pinyin" | "translation" | "annotations" | "comments"; label: string }[] = [
   { key: "hanViet", label: "Hán Việt" },
   { key: "pinyin", label: "Pinyin" },
   { key: "translation", label: "Dịch nghĩa" },
-  { key: "simplified", label: "Giản thể" },
   { key: "annotations", label: "Chú giải" },
   { key: "comments", label: "Bình luận" },
 ];
