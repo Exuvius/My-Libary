@@ -3,14 +3,14 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import type { Character } from "@/types/dictionary";
+import type { CharacterFull } from "@/types/dictionary";
 import { getDictEntryByText } from "@/lib/personal-db";
 import type { PersonalDictEntry } from "@/types/personal";
 import { AddDictEntryModal } from "./AddDictEntryModal";
 
 interface PersonalCharTooltipProps {
   character: string;
-  charData?: Character;
+  charData?: CharacterFull;
   personalEntry?: PersonalDictEntry;
   children: ReactNode;
 }
