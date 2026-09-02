@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { characters, entries, radicals, toTraditional } from "@/lib/mock-data";
 import { Tag } from "@/components/ui/Tag";
@@ -25,12 +25,19 @@ const entryTypeMap: Record<DictTab, EntryType | null> = {
 
 const strokeGroups = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-// Extract unique specialized categories for the filter chips
+const BATCH_SIZE = 60;
+
 const specializedCategories = Array.from(
   new Set(entries.filter(e => e.entryType === "specialized" && e.specializedCategory).map(e => e.specializedCategory!))
 );
 
-// Sort characters alphabetically by Hán Việt reading (Latin order)
+const tabCounts: Record<DictTab, number> = {
+  single: characters.length,
+  compound: entries.filter(e => e.entryType === "compound" || e.entryType === "specialized").length,
+  idiom: entries.filter(e => e.entryType === "idiom").length,
+  specialized: entries.filter(e => e.entryType === "specialized").length,
+};
+
 const sortedCharacters = [...characters].sort((a, b) => {
   const aHv = a.readings[0]?.hanViet?.toLowerCase() || "";
   const bHv = b.readings[0]?.hanViet?.toLowerCase() || "";
@@ -44,72 +51,100 @@ export default function DictionaryPage() {
   const [selectedStroke, setSelectedStroke] = useState<number | null>(null);
   const [selectedRadical, setSelectedRadical] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
+  const sentinelRef = useRef<HTMLDivElement>(null);
   const scriptPreference = useAppStore((s) => s.scriptPreference);
   const useSimplified = scriptPreference === "simplified";
+
+  const resetVisible = useCallback(() => setVisibleCount(BATCH_SIZE), []);
 
   const filteredRadicals = selectedStroke
     ? radicals.filter((r) => r.strokeCount === selectedStroke)
     : radicals;
 
-  const filteredCharacters = sortedCharacters.filter((c) => {
-    if (search) {
-      const q = search.toLowerCase();
-      const qTrad = toTraditional(search);
-      const searchChars = [...new Set([...search, ...qTrad])];
-      const isMultiChar = [...search].length >= 2;
+  const filteredCharacters = useMemo(() => {
+    const isCJK = (ch: string) => ch.charCodeAt(0) >= 0x3400;
+    return sortedCharacters.filter((c) => {
+      if (search) {
+        const q = search.toLowerCase();
+        const qTrad = toTraditional(search);
+        const cjkChars = [...new Set([...search, ...qTrad])].filter(isCJK);
+        const isMultiCJK = cjkChars.length >= 2;
 
-      if (isMultiChar) {
-        if (
-          !searchChars.includes(c.traditional) &&
-          !(c.simplified && searchChars.includes(c.simplified))
-        )
-          return false;
-      } else {
-        if (
-          !c.traditional.includes(q) &&
-          !c.traditional.includes(qTrad) &&
-          !c.simplified?.includes(q) &&
-          !c.readings.some(
-            (r) =>
-              r.hanViet.toLowerCase().includes(q) ||
-              r.pinyin.toLowerCase().includes(q)
+        if (isMultiCJK) {
+          if (
+            !cjkChars.includes(c.traditional) &&
+            !(c.simplified && cjkChars.includes(c.simplified))
           )
+            return false;
+        } else if (cjkChars.length === 1) {
+          if (c.traditional !== cjkChars[0] && c.simplified !== cjkChars[0])
+            return false;
+        } else {
+          if (
+            !c.readings.some(
+              (r) =>
+                r.hanViet.toLowerCase().includes(q) ||
+                r.pinyin.toLowerCase().includes(q)
+            )
+          )
+            return false;
+        }
+      }
+      if (selectedRadical) {
+        if (c.radicalId !== selectedRadical) return false;
+      }
+      return true;
+    });
+  }, [search, selectedRadical]);
+
+  const filteredEntries = useMemo(() => {
+    return entries.filter((e) => {
+      if (activeTab === "compound") {
+        if (e.entryType !== "compound" && e.entryType !== "specialized") return false;
+      } else {
+        const entryType = entryTypeMap[activeTab];
+        if (entryType && e.entryType !== entryType) return false;
+      }
+      if (selectedCategory && e.specializedCategory !== selectedCategory) return false;
+      if (search) {
+        const q = search.toLowerCase();
+        const qTrad = toTraditional(search);
+        if (
+          !e.textTraditional.includes(q) &&
+          !e.textTraditional.includes(qTrad) &&
+          !e.textSimplified?.includes(q) &&
+          !e.hanViet.toLowerCase().includes(q) &&
+          !e.definition.toLowerCase().includes(q)
         )
           return false;
       }
-    }
-    if (selectedRadical) {
-      if (c.radicalId !== selectedRadical) return false;
-    }
-    return true;
-  });
+      return true;
+    });
+  }, [activeTab, selectedCategory, search]);
 
-  // "Từ ghép" tab includes both compound AND specialized entries (the full set),
-  // while "Chuyên ngành" tab shows only specialized entries (a filtered subset
-  // with category tags for domain-specific lookup).
-  const filteredEntries = entries.filter((e) => {
-    if (activeTab === "compound") {
-      if (e.entryType !== "compound" && e.entryType !== "specialized") return false;
-    } else {
-      const entryType = entryTypeMap[activeTab];
-      if (entryType && e.entryType !== entryType) return false;
-    }
-    // Category filter for specialized tab
-    if (selectedCategory && e.specializedCategory !== selectedCategory) return false;
-    if (search) {
-      const q = search.toLowerCase();
-      const qTrad = toTraditional(search);
-      if (
-        !e.textTraditional.includes(q) &&
-        !e.textTraditional.includes(qTrad) &&
-        !e.textSimplified?.includes(q) &&
-        !e.hanViet.toLowerCase().includes(q) &&
-        !e.definition.toLowerCase().includes(q)
-      )
-        return false;
-    }
-    return true;
-  });
+  const currentList = activeTab === "single" ? filteredCharacters : filteredEntries;
+  const totalCount = currentList.length;
+  const hasMore = visibleCount < totalCount;
+
+  useEffect(() => {
+    resetVisible();
+  }, [search, selectedRadical, activeTab, selectedCategory, resetVisible]);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el || !hasMore) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, totalCount));
+        }
+      },
+      { rootMargin: "400px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasMore, totalCount]);
 
   return (
     <div className="max-w-2xl mx-auto px-4 pt-6">
@@ -142,11 +177,7 @@ export default function DictionaryPage() {
           >
             {tab.label}
             <span className="ml-1 text-[10px] opacity-60">
-              {tab.key === "single"
-                ? characters.length
-                : tab.key === "compound"
-                ? entries.filter((e) => e.entryType === "compound" || e.entryType === "specialized").length
-                : entries.filter((e) => e.entryType === entryTypeMap[tab.key]).length}
+              {tabCounts[tab.key]}
             </span>
           </button>
         ))}
@@ -223,7 +254,7 @@ export default function DictionaryPage() {
       {/* Character list */}
       {activeTab === "single" && (
         <div className="space-y-2">
-          {filteredCharacters.map((char) => (
+          {filteredCharacters.slice(0, visibleCount).map((char) => (
             <Link
               key={char.id}
               href={`/dictionary/${char.id}`}
@@ -293,7 +324,7 @@ export default function DictionaryPage() {
       {/* Entry list (compound, idiom, specialized) */}
       {activeTab !== "single" && (
         <div className="space-y-2">
-          {filteredEntries.map((entry) => (
+          {filteredEntries.slice(0, visibleCount).map((entry) => (
             <Link
               key={entry.id}
               href={`/dictionary/entry/${entry.id}`}
@@ -330,6 +361,16 @@ export default function DictionaryPage() {
               Không tìm thấy mục từ phù hợp.
             </p>
           )}
+        </div>
+      )}
+
+      {/* Load more sentinel */}
+      {hasMore && (
+        <div
+          ref={sentinelRef}
+          className="py-6 text-center text-xs text-text-ghost"
+        >
+          Đang tải thêm... ({totalCount - visibleCount} mục còn lại)
         </div>
       )}
     </div>
