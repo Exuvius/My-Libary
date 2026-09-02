@@ -202,6 +202,55 @@ export async function updateDictEntry(
   db.close();
 }
 
+export async function importDictEntries(
+  incoming: PersonalDictEntry[]
+): Promise<{ added: number; updated: number; skipped: number }> {
+  const db = await openDB();
+  const store = db.transaction("dict-entries", "readwrite").objectStore("dict-entries");
+  const textIndex = store.index("text");
+  let added = 0, updated = 0, skipped = 0;
+  for (const entry of incoming) {
+    const existing = ((await req(textIndex.getAll(entry.text))) as PersonalDictEntry[])[0];
+    if (existing) {
+      const hasChanges =
+        existing.hanViet !== entry.hanViet ||
+        existing.pinyin !== entry.pinyin ||
+        existing.definition !== entry.definition ||
+        existing.partOfSpeech !== entry.partOfSpeech ||
+        existing.notes !== entry.notes;
+      if (hasChanges) {
+        Object.assign(existing, {
+          hanViet: entry.hanViet,
+          pinyin: entry.pinyin,
+          definition: entry.definition,
+          partOfSpeech: entry.partOfSpeech,
+          simplified: entry.simplified,
+          entryType: entry.entryType,
+          notes: entry.notes,
+          updatedAt: new Date().toISOString(),
+        });
+        await req(store.put(existing));
+        updated++;
+      } else {
+        skipped++;
+      }
+    } else {
+      const now = new Date().toISOString();
+      await req(
+        store.add({
+          ...entry,
+          id: entry.id || `pd_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+          createdAt: entry.createdAt || now,
+          updatedAt: entry.updatedAt || now,
+        })
+      );
+      added++;
+    }
+  }
+  db.close();
+  return { added, updated, skipped };
+}
+
 export async function deleteDictEntry(id: string): Promise<void> {
   const db = await openDB();
   await req(db.transaction("dict-entries", "readwrite").objectStore("dict-entries").delete(id));

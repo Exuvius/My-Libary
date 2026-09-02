@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import Link from "next/link";
-import { getAllDictEntries, deleteDictEntry } from "@/lib/personal-db";
+import { getAllDictEntries, deleteDictEntry, importDictEntries } from "@/lib/personal-db";
 import { AddDictEntryModal } from "@/components/personal/AddDictEntryModal";
 import type { PersonalDictEntry } from "@/types/personal";
 
@@ -16,6 +16,8 @@ export default function PersonalDictionaryPage() {
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [editEntry, setEditEntry] = useState<PersonalDictEntry | null>(null);
   const [showAdd, setShowAdd] = useState(false);
+  const [importStatus, setImportStatus] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   const load = useCallback(async () => {
@@ -75,6 +77,31 @@ export default function PersonalDictionaryPage() {
     });
   };
 
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      const arr = Array.isArray(data) ? data : [data];
+      const valid = arr.filter(
+        (item: Record<string, unknown>) => item.text && item.hanViet && item.definition
+      );
+      if (valid.length === 0) {
+        setImportStatus("File không chứa mục từ hợp lệ (cần text, hanViet, definition)");
+        return;
+      }
+      const result = await importDictEntries(valid);
+      setImportStatus(
+        `Thêm ${result.added}, cập nhật ${result.updated}, bỏ qua ${result.skipped} mục từ`
+      );
+      load();
+    } catch {
+      setImportStatus("Lỗi đọc file — hãy chọn file JSON hợp lệ");
+    }
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
   if (loading) {
     return <div className="pt-20 text-center text-text-ghost">Đang tải...</div>;
   }
@@ -98,12 +125,25 @@ export default function PersonalDictionaryPage() {
       <div className="flex items-center justify-between mb-3">
         <p className="text-xs text-text-faint">{entries.length} mục từ</p>
         <div className="flex items-center gap-3">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            onChange={handleImport}
+            className="hidden"
+          />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="text-xs font-medium text-text-muted hover:text-accent-dark"
+          >
+            Import
+          </button>
           {entries.length > 0 && (
             <button
               onClick={handleExport}
               className="text-xs font-medium text-text-muted hover:text-accent-dark"
             >
-              Export JSON
+              Export
             </button>
           )}
           <button
@@ -114,6 +154,19 @@ export default function PersonalDictionaryPage() {
           </button>
         </div>
       </div>
+
+      {/* Import status */}
+      {importStatus && (
+        <div className="flex items-center gap-2 mb-3 px-3 py-2 rounded-xl bg-accent-gold/10 border border-accent-gold/30 text-xs text-text-body">
+          <span className="flex-1">{importStatus}</span>
+          <button
+            onClick={() => setImportStatus(null)}
+            className="text-text-ghost hover:text-text-muted text-sm"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Search */}
       {entries.length > 10 && (
