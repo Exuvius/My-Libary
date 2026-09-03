@@ -50,4 +50,6 @@ export const dataAuthors: Author[] = [
   {"id":"auth_truong_dinh_ngoc","nameViet":"Trương Đình Ngọc","nameHan":"張廷玉","era":"1672–1755","dynasty":"Thanh","bio":"Đại thần nhà Thanh, chủ biên Minh Sử trong gần 100 năm"},
   {"id":"auth_trieu_nhi_ton","nameViet":"Triệu Nhĩ Tốn","nameHan":"趙爾巽","era":"1844–1927","dynasty":"Dân Quốc","bio":"Chính trị gia, chủ biên bản thảo sử nhà Thanh"},
   {"id":"auth_kha_thieu_man","nameViet":"Kha Thiệu Mẫn","nameHan":"柯劭忞","era":"1848–1933","dynasty":"Dân Quốc","bio":"Sử gia, biên soạn lại lịch sử nhà Nguyên"},
+  {"id":"auth_nghi_le","nameViet":"Trịnh Huyền (chú) / Giả Công Ngạn (sớ)","nameHan":"鄭玄（注）／賈公彥（疏）","era":"127–200 / 7 thế kỷ","dynasty":"Đông Hán – Đường","bio":"Nghi Lễ ghi chép 17 thiên lễ nghi, Trịnh Huyền đời Hán chú giải, Giả Công Ngạn đời Đường viết sớ."},
+  {"id":"auth_chu_le","nameViet":"Chu Công (tác) / Trịnh Huyền (chú) / Giả Công Ngạn (sớ)","nameHan":"周公（作）／鄭玄（注）／賈公彥（疏）","era":"~1100 TCN / 127–200 / 7 thế kỷ","dynasty":"Tây Chu – Đường","bio":"Chu Lễ ghi chế độ quan chức lý tưởng của nhà Chu, chia 6 quan: Thiên, Địa, Xuân, Hạ, Thu, Đông."},
 ];

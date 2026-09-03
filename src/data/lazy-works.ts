@@ -31,6 +31,8 @@ const lazyWorkImports: Record<string, () => Promise<{ chapters: Chapter[]; sente
   work_minh_su: () => import("./library/minh-su").then(m => ({ chapters: m.minhSuChapters, sentences: m.minhSuSentences, overrides: m.minhSuOverrides })),
   work_thanh_su: () => import("./library/thanh-su-cao").then(m => ({ chapters: m.thanhSuChapters, sentences: m.thanhSuSentences, overrides: m.thanhSuOverrides })),
   work_tan_nguyen: () => import("./library/tan-nguyen-su").then(m => ({ chapters: m.tanNguyenChapters, sentences: m.tanNguyenSentences, overrides: m.tanNguyenOverrides })),
+  work_nl: () => import("./library/nghi-le").then(m => ({ chapters: m.nghiLeChapters, sentences: m.nghiLeSentences, overrides: m.nghiLeOverrides })),
+  work_cl: () => import("./library/chu-le").then(m => ({ chapters: m.chuLeChapters, sentences: m.chuLeSentences, overrides: m.chuLeOverrides })),
 };
 
 export const LAZY_WORK_IDS = new Set(Object.keys(lazyWorkImports));

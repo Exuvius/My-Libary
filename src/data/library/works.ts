@@ -56,4 +56,6 @@ export const dataWorks: (Omit<Work, "author" | "tags"> & { tagIds: string[] })[]
   {"id":"work_minh_su","titleViet":"Minh Sử","titleHan":"明史","authorId":"auth_truong_dinh_ngoc","chapterCount":250,"characterCount":2069738,"language":"han_van","isPublished":true,"iconChar":"明","progressPercent":0,"tagIds":["t3","t9","t19"]},
   {"id":"work_thanh_su","titleViet":"Thanh Sử Cảo","titleHan":"清史稿","authorId":"auth_trieu_nhi_ton","chapterCount":530,"characterCount":4314819,"language":"han_van","isPublished":true,"iconChar":"清","progressPercent":0,"tagIds":["t3","t9","t19"]},
   {"id":"work_tan_nguyen","titleViet":"Tân Nguyên Sử","titleHan":"新元史","authorId":"auth_kha_thieu_man","chapterCount":257,"characterCount":1592650,"language":"han_van","isPublished":true,"iconChar":"新","progressPercent":0,"tagIds":["t3","t9","t19"]},
+  {"id":"work_nl","titleViet":"Nghi Lễ Chú Sớ","titleHan":"儀禮注疏","authorId":"auth_nghi_le","chapterCount":51,"characterCount":602935,"language":"han_van","isPublished":true,"iconChar":"儀","progressPercent":0,"tagIds":["t1","t7","t11","t19"]},
+  {"id":"work_cl","titleViet":"Chu Lễ Chú Sớ","titleHan":"周禮注疏","authorId":"auth_chu_le","chapterCount":43,"characterCount":778766,"language":"han_van","isPublished":true,"iconChar":"禮","progressPercent":0,"tagIds":["t1","t7","t11","t19"]},
 ];

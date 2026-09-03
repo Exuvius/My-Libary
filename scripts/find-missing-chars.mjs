@@ -14,7 +14,15 @@ const SCAN_FILES = [
   "minh-su.ts", "thanh-su-cao.ts", "tan-nguyen-su.ts",
   "cong-duong-truyen.ts", "ta-truyen.ts", "coc-luong-truyen.ts",
   "thuong-thu.ts", "dich-kinh.ts",
+  "nghi-le.ts", "chu-le.ts",
 ];
+
+// Also scan all other library files not already in the list
+import { readdirSync } from "fs";
+const allLibFiles = readdirSync(LIBRARY_DIR).filter(f => f.endsWith(".ts"));
+for (const f of allLibFiles) {
+  if (!SCAN_FILES.includes(f)) SCAN_FILES.push(f);
+}
 
 function isCJK(code) {
   return (
