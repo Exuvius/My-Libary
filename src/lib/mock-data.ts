@@ -19,7 +19,7 @@ import {
 } from "@/data";
 import { simpToTrad as dataSimpToTrad } from "@/data/simp-trad";
 import { dataAnnotations } from "@/data/library/annotations";
-import { dkAnnotations } from "@/data/library/dich-kinh";
+import { dkAnnotations } from "@/data/library/kinh/dich-kinh";
 
 // ===== TAGS =====
 export const tags: Tag[] = [
@@ -43,8 +43,13 @@ export const tags: Tag[] = [
   { id: "t18", name: "Nguyễn", category: "era", sortOrder: 8 },
   { id: "t19", name: "Hán văn", category: "language", sortOrder: 1 },
   { id: "t20", name: "Hán Nôm", category: "language", sortOrder: 2 },
+  { id: "t21", name: "Tử (Chư tử)", category: "type", sortOrder: 6 },
+  { id: "t22", name: "Phật giáo", category: "genre", sortOrder: 6 },
+  { id: "t23", name: "Y học", category: "genre", sortOrder: 7 },
+  { id: "t24", name: "Tiểu thuyết", category: "genre", sortOrder: 8 },
+  { id: "t25", name: "Loại thư", category: "genre", sortOrder: 9 },
+  { id: "t26", name: "Binh pháp", category: "genre", sortOrder: 10 },
 ];
-
 const tagById = new Map(tags.map((t) => [t.id, t]));
 
 // ===== RADICALS (real data: 214 Kangxi radicals) =====

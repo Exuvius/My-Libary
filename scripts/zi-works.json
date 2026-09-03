@@ -1,0 +1,931 @@
+{
+  "tuan_tu": {
+    "id": "work_tuan_tu",
+    "filename": "tuan-tu.ts",
+    "prefix": "tuanTu",
+    "titleViet": "Tuân Tử",
+    "titleHan": "荀子",
+    "authorId": "auth_tuan_tu",
+    "iconChar": "荀",
+    "githubPath": "3.%E5%AD%90/1.%E5%84%92%E5%AE%B6/%E8%8D%80%E5%AD%90%EF%BC%88%E7%B9%81%EF%BC%89.json",
+    "tagIds": [
+      "t1",
+      "t20"
+    ]
+  },
+  "thuyet_uyen": {
+    "id": "work_thuyet_uyen",
+    "filename": "thuyet-uyen.ts",
+    "prefix": "thuyetUyen",
+    "titleViet": "Thuyết Uyển",
+    "titleHan": "說苑",
+    "authorId": "auth_luu_huong",
+    "iconChar": "苑",
+    "githubPath": "3.%E5%AD%90/1.%E5%84%92%E5%AE%B6/%E8%AA%AA%E8%8B%91%EF%BC%88%E6%BC%A2%EF%BC%89%E5%8A%89%E5%90%91.json",
+    "tagIds": [
+      "t1",
+      "t20"
+    ]
+  },
+  "lu_thi_xuan_thu": {
+    "id": "work_ltxt",
+    "filename": "lu-thi-xuan-thu.ts",
+    "prefix": "ltxt",
+    "titleViet": "Lữ Thị Xuân Thu",
+    "titleHan": "呂氏春秋",
+    "authorId": "auth_lu_bat_vi",
+    "iconChar": "呂",
+    "githubPath": "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E5%AD%A6/%E5%91%82%E6%B0%8F%E6%98%A5%E7%A7%8B%EF%BC%88%E6%88%B0%E5%9C%8B%EF%BC%89%E5%91%82%E4%B8%8D%E9%9F%8B%E7%B7%A8.json",
+    "tagIds": [
+      "t1",
+      "t21"
+    ]
+  },
+  "hoai_nam_tu": {
+    "id": "work_hnt",
+    "filename": "hoai-nam-tu.ts",
+    "prefix": "hnt",
+    "titleViet": "Hoài Nam Tử",
+    "titleHan": "淮南子",
+    "authorId": "auth_luu_an",
+    "iconChar": "淮",
+    "githubPath": "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E5%AD%A6/%E6%B7%AE%E5%8D%97%E5%AD%90%EF%BC%88%E8%A5%BF%E6%B1%89%EF%BC%89%E5%88%98%E5%AE%89.json",
+    "tagIds": [
+      "t1",
+      "t21"
+    ]
+  },
+  "cao_tang_truyen": {
+    "id": "work_ctt",
+    "filename": "cao-tang-truyen.ts",
+    "prefix": "ctt",
+    "titleViet": "Cao Tăng Truyện",
+    "titleHan": "高僧傳",
+    "authorId": "auth_tue_kieu",
+    "iconChar": "僧",
+    "githubPath": "3.%E5%AD%90/5.%E9%87%8A%E5%AE%B6/%E9%AB%98%E5%83%A7%E4%BC%A0%EF%BC%88%E6%A2%81%EF%BC%89%E9%87%8A%E6%85%A7%E7%9A%8E%E6%92%B0.json",
+    "tagIds": [
+      "t1",
+      "t22"
+    ]
+  },
+  "hoang_de_noi_kinh": {
+    "id": "work_hdnk",
+    "filename": "hoang-de-noi-kinh.ts",
+    "prefix": "hdnk",
+    "titleViet": "Hoàng Đế Nội Kinh",
+    "titleHan": "黃帝內經",
+    "authorId": "auth_hdnk",
+    "iconChar": "醫",
+    "multiFile": [
+      "3.%E5%AD%90/7.%E5%8C%BB%E5%AD%A6/%E9%BB%83%E5%B8%9D%E5%85%A7%E7%B6%93%E7%B4%A0%E5%95%8F%E8%AD%AF%E8%A7%A3.json",
+      "3.%E5%AD%90/7.%E5%8C%BB%E5%AD%A6/%E9%BB%83%E5%B8%9D%E5%85%A7%E7%B6%93%E9%9D%88%E6%A8%9E%E8%AD%AF%E8%A7%A3.json"
+    ],
+    "sectionLabels": [
+      "Tố Vấn",
+      "Linh Khu"
+    ],
+    "tagIds": [
+      "t1",
+      "t23"
+    ]
+  },
+  "cham_cuu": {
+    "id": "work_ccgy",
+    "filename": "cham-cuu-giap-at.ts",
+    "prefix": "ccgy",
+    "titleViet": "Châm Cứu Giáp Ất Kinh",
+    "titleHan": "針灸甲乙經",
+    "authorId": "auth_hoang_phu_mat",
+    "iconChar": "針",
+    "githubPath": "3.%E5%AD%90/7.%E5%8C%BB%E5%AD%A6/%E9%92%88%E7%81%B8%E7%94%B2%E4%B9%99%E7%BB%8F%EF%BC%88%E6%99%8B%EF%BC%89%E7%9A%87%E7%94%AB%E8%B0%A7.json",
+    "tagIds": [
+      "t1",
+      "t23"
+    ]
+  },
+  "son_hai_kinh": {
+    "id": "work_shk",
+    "filename": "son-hai-kinh.ts",
+    "prefix": "shk",
+    "titleViet": "Sơn Hải Kinh Hiệu Chú",
+    "titleHan": "山海經校註",
+    "authorId": "auth_vien_kha",
+    "iconChar": "山",
+    "githubPath": "3.%E5%AD%90/15.%E5%B0%8F%E8%AF%B4%E5%AE%B6/%E5%BC%82%E9%97%BB/%E5%B1%B1%E6%B5%B7%E7%BB%8F%E6%A0%A1%E6%B3%A8%E8%A2%81%E7%8F%82%E6%A0%A1%E6%B3%A8.json",
+    "tagIds": [
+      "t1",
+      "t24"
+    ]
+  },
+  "mac_tu": {
+    "id": "work_mac_tu",
+    "filename": "mac-tu.ts",
+    "prefix": "macTu",
+    "titleViet": "Mặc Tử Nhàn Cổ",
+    "titleHan": "墨子閒詁",
+    "authorId": "auth_ton_di_nhuong",
+    "iconChar": "墨",
+    "githubPath": "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E5%AD%A6/%E5%A2%A8%E5%AD%90%E9%96%92%E8%AF%82%EF%BC%88%E6%B8%85%EF%BC%89%E5%AD%AB%E8%A9%92%E8%AE%93.json",
+    "tagIds": [
+      "t1",
+      "t21"
+    ]
+  },
+  "luan_hanh": {
+    "id": "work_luan_hanh",
+    "filename": "luan-hanh.ts",
+    "prefix": "luanHanh",
+    "titleViet": "Luận Hành Hiệu Thích",
+    "titleHan": "論衡校釋",
+    "authorId": "auth_vuong_sung",
+    "iconChar": "衡",
+    "githubPath": "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E8%AF%B4/%E8%AB%96%E8%A1%A1%E6%A0%A1%E9%87%8B%EF%BC%88%E6%9D%B1%E6%BC%A2%EF%BC%89%E7%8E%8B%E5%85%85%E6%92%B0%20%E9%BB%83%E6%9A%89%E6%92%B0%E6%A0%A1%E9%87%8B.json",
+    "tagIds": [
+      "t1",
+      "t21"
+    ]
+  },
+  "phong_tuc_thong_nghia": {
+    "id": "work_pttn",
+    "filename": "phong-tuc-thong-nghia.ts",
+    "prefix": "pttn",
+    "titleViet": "Phong Tục Thông Nghĩa Hiệu Chú",
+    "titleHan": "風俗通義校注",
+    "authorId": "auth_ung_thieu",
+    "iconChar": "俗",
+    "githubPath": "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E8%AF%B4/%E9%A2%A8%E4%BF%97%E9%80%9A%E7%BE%A9%E6%A0%A1%E6%B3%A8%EF%BC%88%E6%9D%B1%E6%BC%A2%EF%BC%89%E6%87%89%E5%8A%AD%E6%92%B0%E7%8E%8B%E5%88%A9%E5%99%A8%E6%A0%A1%E6%B3%A8.json",
+    "tagIds": [
+      "t1",
+      "t21"
+    ]
+  },
+  "nhan_thi_gia_huan": {
+    "id": "work_ntgh",
+    "filename": "nhan-thi-gia-huan.ts",
+    "prefix": "ntgh",
+    "titleViet": "Nhan Thị Gia Huấn Tập Giải",
+    "titleHan": "顏氏家訓集解",
+    "authorId": "auth_nhan_chi_thoi",
+    "iconChar": "訓",
+    "githubPath": "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E5%AD%A6/%E9%A2%9C%E6%B0%8F%E5%AE%B6%E8%AE%AD%E9%9B%86%E8%A7%A3%EF%BC%88%E5%8C%97%E9%BD%90%EF%BC%89%E9%A2%9C%E4%B9%8B%E6%8E%A8%E8%91%97%20%E7%8E%8B%E5%88%A9%E5%99%A8%E9%9B%86%E8%A7%A3.json",
+    "tagIds": [
+      "t1",
+      "t21"
+    ]
+  },
+  "dung_trai": {
+    "id": "work_dtbt",
+    "filename": "dung-trai.ts",
+    "prefix": "dtbt",
+    "titleViet": "Dung Trai Tuỳ Bút",
+    "titleHan": "容齋隨筆",
+    "authorId": "auth_hong_mai",
+    "iconChar": "齋",
+    "multiFile": [
+      "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E8%80%83/%E5%AE%B9%E6%96%8B%E9%9A%8F%E7%AC%94%EF%BC%88%E5%AE%8B%EF%BC%89%E6%B4%AA%E8%BF%88.json",
+      "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E8%80%83/%E5%AE%B9%E6%96%8B%E7%BB%AD%E7%AC%94%EF%BC%88%E5%AE%8B%EF%BC%89%E6%B4%AA%E8%BF%88.json",
+      "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E8%80%83/%E5%AE%B9%E6%96%8B%E4%B8%89%E7%AC%94%EF%BC%88%E5%AE%8B%EF%BC%89%E6%B4%AA%E8%BF%88.json",
+      "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E8%80%83/%E5%AE%B9%E6%96%8B%E5%9B%9B%E7%AC%94%EF%BC%88%E5%AE%8B%EF%BC%89%E6%B4%AA%E8%BF%88.json",
+      "3.%E5%AD%90/12.%E6%9D%82%E5%AE%B6/%E6%9D%82%E8%80%83/%E5%AE%B9%E6%96%8B%E4%BA%94%E7%AC%94%EF%BC%88%E5%AE%8B%EF%BC%89%E6%B4%AA%E8%BF%88.json"
+    ],
+    "sectionLabels": [
+      "Tuỳ Bút",
+      "Tục Bút",
+      "Tam Bút",
+      "Tứ Bút",
+      "Ngũ Bút"
+    ],
+    "tagIds": [
+      "t1",
+      "t21"
+    ]
+  },
+  "tuc_cao_tang": {
+    "id": "work_tctt",
+    "filename": "tuc-cao-tang.ts",
+    "prefix": "tctt",
+    "titleViet": "Tục Cao Tăng Truyện",
+    "titleHan": "續高僧傳",
+    "authorId": "auth_dao_tuyen",
+    "iconChar": "續",
+    "githubPath": "3.%E5%AD%90/5.%E9%87%8A%E5%AE%B6/%E7%BB%AD%E9%AB%98%E5%83%A7%E4%BC%A0%EF%BC%88%E5%94%90%EF%BC%89%E9%87%8A%E9%81%93%E5%AE%A3%E6%92%B0.json",
+    "tagIds": [
+      "t1",
+      "t22"
+    ]
+  },
+  "phap_ngon": {
+    "id": "work_phap_ngon",
+    "filename": "phap-ngon.ts",
+    "prefix": "phapNgon",
+    "titleViet": "Pháp Ngôn Nghĩa Sớ",
+    "titleHan": "法言義疏",
+    "authorId": "auth_duong_hung",
+    "iconChar": "法",
+    "githubPath": "3.%E5%AD%90/1.%E5%84%92%E5%AE%B6/%E6%B3%95%E8%A8%80%E7%BE%A9%E7%96%8F%EF%BC%88%E8%A5%BF%E6%BC%A2%EF%BC%89%E6%A5%8A%E9%9B%84%E6%92%B0%E6%B1%AA%E6%A6%AE%E5%AF%B6%E6%B3%A8%E7%96%8F.json",
+    "tagIds": [
+      "t1",
+      "t20"
+    ]
+  },
+  "the_thuyet_tan_ngu": {
+    "id": "work_tttn",
+    "filename": "the-thuyet-tan-ngu.ts",
+    "prefix": "tttn",
+    "titleViet": "Thế Thuyết Tân Ngữ Tiên Sớ",
+    "titleHan": "世說新語箋疏",
+    "authorId": "auth_luu_nghia_khanh",
+    "iconChar": "說",
+    "githubPath": "3.%E5%AD%90/15.%E5%B0%8F%E8%AF%B4%E5%AE%B6/%E6%9D%82%E4%BA%8B/%E4%B8%96%E8%AA%AC%E6%96%B0%E8%AA%9E%E7%AE%8B%E7%96%8F%E4%BD%99%E5%98%89%E9%8C%AB%E7%AE%8B%E7%96%8F.json",
+    "tagIds": [
+      "t1",
+      "t24"
+    ]
+  },
+  "vuong_thu_nhan": {
+    "id": "work_vtn",
+    "filename": "vuong-thu-nhan.ts",
+    "prefix": "vtn",
+    "titleViet": "Vương Thủ Nhân Toàn Tập",
+    "titleHan": "王守仁全集",
+    "authorId": "auth_vuong_thu_nhan",
+    "iconChar": "陽",
+    "githubPath": "3.%E5%AD%90/1.%E5%84%92%E5%AE%B6/%E7%8E%8B%E5%AE%88%E4%BB%81%E5%85%A8%E9%9B%86.json",
+    "tagIds": [
+      "t1",
+      "t20"
+    ]
+  },
+  "nghe_van_loai_tu": {
+    "id": "work_nvlt",
+    "filename": "nghe-van-loai-tu.ts",
+    "prefix": "nvlt",
+    "titleViet": "Nghệ Văn Loại Tụ",
+    "titleHan": "藝文類聚",
+    "authorId": "auth_au_duong_van",
+    "iconChar": "聚",
+    "githubPath": "3.%E5%AD%90/7.%E5%8C%BB%E5%AD%A6/%E8%89%BA%E6%96%87%E7%B1%BB%E8%81%9A%EF%BC%88%E5%94%90%EF%BC%89%E6%AC%A7%E9%98%B3%E8%AF%A2.json",
+    "tagIds": [
+      "t1",
+      "t25"
+    ]
+  },
+  "so_hoc_ky": {
+    "id": "work_shky",
+    "filename": "so-hoc-ky.ts",
+    "prefix": "shky",
+    "titleViet": "Sơ Học Ký",
+    "titleHan": "初學記",
+    "authorId": "auth_tu_kien",
+    "iconChar": "初",
+    "githubPath": "3.%E5%AD%90/13.%E7%B1%BB%E4%B9%A6/%E5%88%9D%E5%AD%A6%E8%AE%B0%EF%BC%88%E5%94%90%EF%BC%89%E5%BE%90%E5%9D%9A.json",
+    "tagIds": [
+      "t1",
+      "t25"
+    ]
+  },
+  "bac_duong_thu_sao": {
+    "id": "work_bdts",
+    "filename": "bac-duong-thu-sao.ts",
+    "prefix": "bdts",
+    "titleViet": "Bắc Đường Thư Sao",
+    "titleHan": "北堂書鈔",
+    "authorId": "auth_ngu_the_nam",
+    "iconChar": "鈔",
+    "githubPath": "3.%E5%AD%90/13.%E7%B1%BB%E4%B9%A6/%E5%8C%97%E5%A0%82%E6%9B%B8%E9%88%94%EF%BC%88%E5%94%90%EF%BC%89%E8%99%9E%E4%B8%96%E5%8D%97%E8%BC%AF%E9%8C%84.json",
+    "tagIds": [
+      "t1",
+      "t25"
+    ]
+  },
+  "chu_tu_ngu_loai": {
+    "id": "work_ctnl",
+    "filename": "chu-tu-ngu-loai.ts",
+    "prefix": "ctnl",
+    "titleViet": "Chu Tử Ngữ Loại",
+    "titleHan": "朱子語類",
+    "authorId": "auth_le_tinh_duc",
+    "iconChar": "朱",
+    "githubPath": "3.%E5%AD%90/1.%E5%84%92%E5%AE%B6/%E6%9C%B1%E5%AD%90%E8%AA%9E%E9%A1%9E%EF%BC%88%E5%8D%97%E5%AE%8B%EF%BC%89%E9%BB%8E%E9%9D%96%E5%BE%B7%E7%B7%A8.json",
+    "tagIds": [
+      "t1",
+      "t20"
+    ]
+  },
+  "tang_yeu": {
+    "id": "work_tang_yeu",
+    "filename": "tang-yeu.ts",
+    "prefix": "tangYeu",
+    "titleViet": "Tạng Yếu",
+    "titleHan": "藏要",
+    "authorId": "auth_au_duong_canh_vo",
+    "iconChar": "藏",
+    "githubPath": "3.%E5%AD%90/5.%E9%87%8A%E5%AE%B6/%E8%97%8F%E8%A6%81_%E6%AC%A7%E9%98%B3%E7%AB%9E%E6%97%A0%E7%BC%96.json",
+    "tagIds": [
+      "t1",
+      "t22"
+    ]
+  },
+  "thai_binh_quang_ky": {
+    "id": "work_tbqk",
+    "filename": "thai-binh-quang-ky.ts",
+    "prefix": "tbqk",
+    "titleViet": "Thái Bình Quảng Ký",
+    "titleHan": "太平廣記",
+    "authorId": "auth_ly_phong_2",
+    "iconChar": "廣",
+    "githubPath": "3.%E5%AD%90/15.%E5%B0%8F%E8%AF%B4%E5%AE%B6/%E5%BC%82%E9%97%BB/%E5%A4%AA%E5%B9%B3%E5%B9%BF%E8%AE%B0%EF%BC%88%E5%AE%8B%EF%BC%89%E6%9D%8E%E6%98%89.json",
+    "tagIds": [
+      "t1",
+      "t24"
+    ]
+  },
+  "thai_binh_ngu_lam": {
+    "id": "work_tbnl",
+    "filename": "thai-binh-ngu-lam.ts",
+    "prefix": "tbnl",
+    "titleViet": "Thái Bình Ngự Lãm",
+    "titleHan": "太平御覽",
+    "authorId": "auth_ly_phong",
+    "iconChar": "覽",
+    "githubPath": "3.%E5%AD%90/13.%E7%B1%BB%E4%B9%A6/%E5%A4%AA%E5%B9%B3%E5%BE%A1%E8%A7%88%EF%BC%88%E5%AE%8B%EF%BC%89%E6%9D%8E%E6%98%89%E7%AD%89%E6%92%B0.json",
+    "tagIds": [
+      "t1",
+      "t25"
+    ]
+  },
+  "thanh_bai_loai_sao": {
+    "id": "work_tbls",
+    "filename": "thanh-bai-loai-sao.ts",
+    "prefix": "tbls",
+    "titleViet": "Thanh Bại Loại Sao",
+    "titleHan": "清稗類鈔",
+    "authorId": "auth_tu_kha",
+    "iconChar": "稗",
+    "githubPath": "3.%E5%AD%90/13.%E7%B1%BB%E4%B9%A6/%E6%B8%85%E7%A8%97%E9%A1%9E%E9%88%94%EF%BC%88%E6%B8%85%EF%BC%89%E5%BE%90%E7%8F%82%E7%BC%96.json",
+    "tagIds": [
+      "t1",
+      "t25"
+    ]
+  },
+  "sach_phu_nguyen_quy": {
+    "id": "work_spnq",
+    "filename": "sach-phu-nguyen-quy.ts",
+    "prefix": "spnq",
+    "titleViet": "Sách Phủ Nguyên Quy",
+    "titleHan": "册府元龜",
+    "authorId": "auth_vuong_kham_nhuoc",
+    "iconChar": "冊",
+    "githubPath": "3.%E5%AD%90/13.%E7%B1%BB%E4%B9%A6/%E5%86%8C%E5%BA%9C%E5%85%83%E9%BE%9F%EF%BC%88%E5%AE%8B%EF%BC%89%E7%8E%8B%E9%92%A6%E8%8B%A5%E7%AD%89%20%E7%BC%96%E4%BF%AE.json",
+    "tagIds": [
+      "t1",
+      "t25"
+    ]
+  },
+  "nhan_hoc_ky": {
+    "id": "work_nhk",
+    "filename": "nhan-hoc-ky.ts",
+    "prefix": "nhk",
+    "titleViet": "Nhan Thị Học Ký",
+    "titleHan": "顏氏學記",
+    "authorId": "auth_dai_vong",
+    "iconChar": "顏",
+    "githubPath": "3.子/1.儒家/颜氏学记（清）戴望.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t19"
+    ]
+  },
+  "khong_tu_tap_ngu": {
+    "id": "work_kttn",
+    "filename": "khong-tu-tap-ngu.ts",
+    "prefix": "kttn",
+    "titleViet": "Khổng Tử Tập Ngữ",
+    "titleHan": "孔子集語",
+    "authorId": "auth_ton_tinh_dien",
+    "iconChar": "孔",
+    "githubPath": "3.子/1.儒家/孔子集语（清）孙星衍.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t11",
+      "t19"
+    ]
+  },
+  "tan_ngu_hieu_chu": {
+    "id": "work_tnhc",
+    "filename": "tan-ngu-hieu-chu.ts",
+    "prefix": "tnhc",
+    "titleViet": "Tân Ngữ Hiệu Chú",
+    "titleHan": "新語校注",
+    "authorId": "auth_vuong_loi_khi",
+    "iconChar": "語",
+    "githubPath": "3.子/1.儒家/新語校注王利器.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t13",
+      "t19"
+    ]
+  },
+  "the_pham": {
+    "id": "work_tp",
+    "filename": "the-pham.ts",
+    "prefix": "tp",
+    "titleViet": "Thế Phạm",
+    "titleHan": "世範",
+    "authorId": "auth_vien_thai",
+    "iconChar": "範",
+    "githubPath": "3.子/1.儒家/世范（宋）袁采.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t15",
+      "t19"
+    ]
+  },
+  "gia_pham": {
+    "id": "work_gp",
+    "filename": "gia-pham.ts",
+    "prefix": "gp",
+    "titleViet": "Gia Phạm",
+    "titleHan": "家範",
+    "authorId": "auth_tu_ma_quang",
+    "iconChar": "家",
+    "githubPath": "3.子/1.儒家/家范（宋）司马光.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t15",
+      "t19"
+    ]
+  },
+  "khong_tu_gia_ngu": {
+    "id": "work_ktgn",
+    "filename": "khong-tu-gia-ngu.ts",
+    "prefix": "ktgn",
+    "titleViet": "Khổng Tử Gia Ngữ Chú",
+    "titleHan": "孔子家語注",
+    "authorId": "auth_vuong_tuc",
+    "iconChar": "語",
+    "githubPath": "3.子/1.儒家/孔子家語注 王肅注.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t11",
+      "t19"
+    ]
+  },
+  "diem_thiet_luan": {
+    "id": "work_dtl",
+    "filename": "diem-thiet-luan.ts",
+    "prefix": "dtl",
+    "titleViet": "Diêm Thiết Luận",
+    "titleHan": "鹽鐵論",
+    "authorId": "auth_hoan_khoan",
+    "iconChar": "鹽",
+    "githubPath": "3.子/1.儒家/盐铁论（西汉）桓宽.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t13",
+      "t19"
+    ]
+  },
+  "can_tu_luc": {
+    "id": "work_ctl",
+    "filename": "can-tu-luc.ts",
+    "prefix": "ctl",
+    "titleViet": "Cận Tư Lục",
+    "titleHan": "近思錄",
+    "authorId": "auth_chu_hi",
+    "iconChar": "思",
+    "githubPath": "3.子/1.儒家/近思錄（宋）朱熹 吕祖謙.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t15",
+      "t19"
+    ]
+  },
+  "truong_tu_chinh_mong": {
+    "id": "work_ttcm",
+    "filename": "truong-tu-chinh-mong.ts",
+    "prefix": "ttcm",
+    "titleViet": "Trương Tử Chính Mông Chú",
+    "titleHan": "張子正蒙注",
+    "authorId": "auth_vuong_phu_chi",
+    "iconChar": "蒙",
+    "githubPath": "3.子/1.儒家/张子正蒙注（清）王夫之.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t19"
+    ]
+  },
+  "tan_thu_gia_nghi": {
+    "id": "work_ttgn",
+    "filename": "tan-thu-gn.ts",
+    "prefix": "tanThuGN",
+    "titleViet": "Tân Thư",
+    "titleHan": "新書",
+    "authorId": "auth_gia_nghi",
+    "iconChar": "書",
+    "githubPath": "3.子/1.儒家/新书（西汉）贾谊.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t13",
+      "t19"
+    ]
+  },
+  "tan_tu": {
+    "id": "work_tan_tu",
+    "filename": "tan-tu-lh.ts",
+    "prefix": "tanTuLH",
+    "titleViet": "Tân Tự",
+    "titleHan": "新序",
+    "authorId": "auth_luu_huong",
+    "iconChar": "序",
+    "githubPath": "3.子/1.儒家/新序（汉）刘向.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t13",
+      "t19"
+    ]
+  },
+  "thien_lam_tang_bao": {
+    "id": "work_tltb",
+    "filename": "thien-lam-tang-bao.ts",
+    "prefix": "tltb",
+    "titleViet": "Thiền Lâm Tăng Bảo Truyện",
+    "titleHan": "禪林僧寶傳",
+    "authorId": "auth_giac_pham",
+    "iconChar": "禪",
+    "githubPath": "3.子/5.释家/禅林僧宝传（宋）释觉范.json",
+    "tagIds": [
+      "t21",
+      "t22",
+      "t15",
+      "t19"
+    ]
+  },
+  "kim_cang_kinh": {
+    "id": "work_kck",
+    "filename": "kim-cang-kinh.ts",
+    "prefix": "kck",
+    "titleViet": "Kim Cang Kinh Tập Chú",
+    "titleHan": "金剛經集注",
+    "authorId": "auth_chu_de",
+    "iconChar": "金",
+    "githubPath": "3.子/5.释家/金刚经集注（明）朱棣主编.json",
+    "tagIds": [
+      "t21",
+      "t22",
+      "t19"
+    ]
+  },
+  "luc_to_dan_kinh": {
+    "id": "work_ltdk",
+    "filename": "luc-to-dan-kinh.ts",
+    "prefix": "ltdk",
+    "titleViet": "Lục Tổ Đàn Kinh",
+    "titleHan": "六祖壇經",
+    "authorId": "auth_tue_nang",
+    "iconChar": "壇",
+    "githubPath": "3.子/5.释家/六祖坛经（唐）释慧能.json",
+    "tagIds": [
+      "t21",
+      "t22",
+      "t14",
+      "t19"
+    ]
+  },
+  "luyen_binh": {
+    "id": "work_lb",
+    "filename": "luyen-binh.ts",
+    "prefix": "lb",
+    "titleViet": "Luyện Binh Thực Kỷ",
+    "titleHan": "練兵實紀",
+    "authorId": "auth_thich_ke_quang",
+    "iconChar": "兵",
+    "githubPath": "3.子/6.兵学/练兵实纪（明）戚继光.json",
+    "tagIds": [
+      "t21",
+      "t26",
+      "t19"
+    ]
+  },
+  "ho_kiem_kinh": {
+    "id": "work_hkk",
+    "filename": "ho-kiem-kinh.ts",
+    "prefix": "hkk",
+    "titleViet": "Hổ Kiềm Kinh",
+    "titleHan": "虎鈐經",
+    "authorId": "auth_hua_dong",
+    "iconChar": "虎",
+    "githubPath": "3.子/6.兵学/虎钤经（宋）许洞.json",
+    "tagIds": [
+      "t21",
+      "t26",
+      "t15",
+      "t19"
+    ]
+  },
+  "bach_chien_ky_luoc": {
+    "id": "work_bckl",
+    "filename": "bach-chien-ky-luoc.ts",
+    "prefix": "bckl",
+    "titleViet": "Bách Chiến Kỳ Lược",
+    "titleHan": "百戰奇略",
+    "authorId": "auth_luu_co",
+    "iconChar": "戰",
+    "githubPath": "3.子/6.兵学/百战奇略（明）刘基.json",
+    "tagIds": [
+      "t21",
+      "t26",
+      "t19"
+    ]
+  },
+  "ton_tu_luoc_giai": {
+    "id": "work_ttlg",
+    "filename": "ton-tu-luoc-giai.ts",
+    "prefix": "ttlg",
+    "titleViet": "Tôn Tử Lược Giải",
+    "titleHan": "孫子略解",
+    "authorId": "auth_tao_thao",
+    "iconChar": "孫",
+    "githubPath": "3.子/6.兵学/孫子略解（魏）曹操.json",
+    "tagIds": [
+      "t21",
+      "t26",
+      "t19"
+    ]
+  },
+  "tri_bac_ngau_dam": {
+    "id": "work_tbnd",
+    "filename": "tri-bac-ngau-dam.ts",
+    "prefix": "tbnd",
+    "titleViet": "Trì Bắc Ngẫu Đàm",
+    "titleHan": "池北偶談",
+    "authorId": "auth_vuong_si_trinh",
+    "iconChar": "池",
+    "githubPath": "3.子/12.杂家/杂说/池北偶谈（清）王士禛.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t19"
+    ]
+  },
+  "hac_lam_ngoc_lo": {
+    "id": "work_hlnl",
+    "filename": "hac-lam-ngoc-lo.ts",
+    "prefix": "hlnl",
+    "titleViet": "Hạc Lâm Ngọc Lộ",
+    "titleHan": "鶴林玉露",
+    "authorId": "auth_la_dai_kinh",
+    "iconChar": "鶴",
+    "githubPath": "3.子/12.杂家/杂说/鹤林玉露（宋）罗大经.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t15",
+      "t19"
+    ]
+  },
+  "te_dong_da_ngu": {
+    "id": "work_tddn",
+    "filename": "te-dong-da-ngu.ts",
+    "prefix": "tddn",
+    "titleViet": "Tề Đông Dã Ngữ",
+    "titleHan": "齊東野語",
+    "authorId": "auth_chu_mat",
+    "iconChar": "齊",
+    "githubPath": "3.子/12.杂家/杂说/齐东野语（宋）周密.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t15",
+      "t19"
+    ]
+  },
+  "da_khach_tung_thu": {
+    "id": "work_dktt",
+    "filename": "da-khach-tung-thu.ts",
+    "prefix": "dktt",
+    "titleViet": "Dã Khách Tùng Thư",
+    "titleHan": "野客叢書",
+    "authorId": "auth_vuong_mau",
+    "iconChar": "野",
+    "githubPath": "3.子/12.杂家/杂考/野客丛书（宋）王楙 撰.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t15",
+      "t19"
+    ]
+  },
+  "bach_ho_thong_nghia": {
+    "id": "work_bhtn",
+    "filename": "bach-ho-thong-nghia.ts",
+    "prefix": "bhtn",
+    "titleViet": "Bạch Hổ Thông Nghĩa",
+    "titleHan": "白虎通義",
+    "authorId": "auth_ban_co_2",
+    "iconChar": "通",
+    "githubPath": "3.子/12.杂家/杂考/白虎通义（东汉）班固.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t13",
+      "t19"
+    ]
+  },
+  "truong_doan_kinh": {
+    "id": "work_tdk",
+    "filename": "truong-doan-kinh.ts",
+    "prefix": "tdk",
+    "titleViet": "Trường Đoản Kinh",
+    "titleHan": "長短經",
+    "authorId": "auth_trieu_nhuy",
+    "iconChar": "經",
+    "githubPath": "3.子/12.杂家/杂学/长短经（唐）赵蕤撰.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t14",
+      "t19"
+    ]
+  },
+  "dong_pha_chi_lam": {
+    "id": "work_dpcl",
+    "filename": "dong-pha-chi-lam.ts",
+    "prefix": "dpcl",
+    "titleViet": "Đông Pha Chí Lâm",
+    "titleHan": "東坡志林",
+    "authorId": "auth_su_shi",
+    "iconChar": "坡",
+    "githubPath": "3.子/12.杂家/杂说/東坡志林（宋）蘇軾.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t15",
+      "t19"
+    ]
+  },
+  "quy_coc_tu": {
+    "id": "work_qct",
+    "filename": "quy-coc-tu.ts",
+    "prefix": "qct",
+    "titleViet": "Quỷ Cốc Tử",
+    "titleHan": "鬼谷子",
+    "authorId": "auth_dao_hong_canh",
+    "iconChar": "鬼",
+    "githubPath": "3.子/12.杂家/杂学/鬼谷子（梁）陶弘景注.json",
+    "tagIds": [
+      "t4",
+      "t21",
+      "t19"
+    ]
+  },
+  "tong_bai_loai_sao": {
+    "id": "work_tblsx",
+    "filename": "tong-bai-loai-sao.ts",
+    "prefix": "tblsx",
+    "titleViet": "Tống Bại Loại Sao",
+    "titleHan": "宋稗類鈔",
+    "authorId": "auth_phan_vinh_nhan",
+    "iconChar": "宋",
+    "githubPath": "3.子/13.类书/宋稗類鈔（清）潘永因編.json",
+    "tagIds": [
+      "t21",
+      "t25",
+      "t15",
+      "t19"
+    ]
+  },
+  "that_tu_loai_cao": {
+    "id": "work_ttlc",
+    "filename": "that-tu-loai-cao.ts",
+    "prefix": "ttlc",
+    "titleViet": "Thất Tu Loại Cảo",
+    "titleHan": "七修類稿",
+    "authorId": "auth_lang_anh",
+    "iconChar": "七",
+    "githubPath": "3.子/13.类书/七修类稿（明）郎锳.json",
+    "tagIds": [
+      "t21",
+      "t25",
+      "t19"
+    ]
+  },
+  "duong_ngu_lam": {
+    "id": "work_dnl",
+    "filename": "duong-ngu-lam.ts",
+    "prefix": "dnl",
+    "titleViet": "Đường Ngữ Lâm",
+    "titleHan": "唐語林",
+    "authorId": "auth_vuong_dang",
+    "iconChar": "林",
+    "githubPath": "3.子/15.小说家/杂事/唐语林（宋）王谠.json",
+    "tagIds": [
+      "t21",
+      "t24",
+      "t14",
+      "t19"
+    ]
+  },
+  "tu_trieu_van_kien": {
+    "id": "work_ttvk",
+    "filename": "tu-trieu-van-kien.ts",
+    "prefix": "ttvk",
+    "titleViet": "Tứ Triều Văn Kiến Lục",
+    "titleHan": "四朝聞見錄",
+    "authorId": "auth_diep_thieu_ong",
+    "iconChar": "四",
+    "githubPath": "3.子/15.小说家/杂事/四朝闻见录（宋）叶绍翁.json",
+    "tagIds": [
+      "t21",
+      "t24",
+      "t15",
+      "t19"
+    ]
+  },
+  "bac_mong_toa_ngon": {
+    "id": "work_bmtn",
+    "filename": "bac-mong-toa-ngon.ts",
+    "prefix": "bmtn",
+    "titleViet": "Bắc Mộng Toả Ngôn",
+    "titleHan": "北夢瑣言",
+    "authorId": "auth_ton_quang_hien",
+    "iconChar": "夢",
+    "githubPath": "3.子/15.小说家/杂事/北梦琐言（五代）孙光宪 陈尚君再补.json",
+    "tagIds": [
+      "t21",
+      "t24",
+      "t19"
+    ]
+  },
+  "dai_duong_tan_ngu": {
+    "id": "work_ddtn",
+    "filename": "dai-duong-tan-ngu.ts",
+    "prefix": "ddtn",
+    "titleViet": "Đại Đường Tân Ngữ",
+    "titleHan": "大唐新語",
+    "authorId": "auth_luu_tuc",
+    "iconChar": "唐",
+    "githubPath": "3.子/15.小说家/杂事/大唐新语（唐）刘肃.json",
+    "tagIds": [
+      "t21",
+      "t24",
+      "t14",
+      "t19"
+    ]
+  },
+  "suu_than_ky": {
+    "id": "work_stk",
+    "filename": "suu-than-ky.ts",
+    "prefix": "stk",
+    "titleViet": "Sưu Thần Ký",
+    "titleHan": "搜神記",
+    "authorId": "auth_can_bao",
+    "iconChar": "搜",
+    "githubPath": "3.子/15.小说家/异闻/搜神記（晉）干寶等著.json",
+    "tagIds": [
+      "t21",
+      "t24",
+      "t19"
+    ]
+  },
+  "tuyen_hoa_hoa_pho": {
+    "id": "work_thhp",
+    "filename": "tuyen-hoa-hoa-pho.ts",
+    "prefix": "thhp",
+    "titleViet": "Tuyên Hoà Hoạ Phổ",
+    "titleHan": "宣和畫譜",
+    "authorId": "auth_tuyen_hoa",
+    "iconChar": "畫",
+    "githubPath": "3.子/9.艺术/宣和画谱.json",
+    "tagIds": [
+      "t21",
+      "t19"
+    ]
+  },
+  "cuu_chuong_toan_kinh": {
+    "id": "work_cctk",
+    "filename": "cuu-chuong-toan-kinh.ts",
+    "prefix": "cctk",
+    "titleViet": "Cửu Chương Toán Kinh",
+    "titleHan": "九章算經",
+    "authorId": "auth_luu_huy",
+    "iconChar": "算",
+    "githubPath": "3.子/10.天文算法/九章算經（晉）劉徽注.json",
+    "tagIds": [
+      "t21",
+      "t19"
+    ]
+  }
+}

@@ -4,25 +4,15 @@ import path from "path";
 const LIBRARY_DIR = "src/data/library";
 const CHARS_FILE = "src/data/characters.ts";
 
-const SCAN_FILES = [
-  "su-ky.ts", "han-thu.ts", "hau-han-thu.ts", "tam-quoc-chi.ts",
-  "tan-thu.ts", "tong-thu.ts", "nam-te-thu.ts", "luong-thu.ts",
-  "tran-thu.ts", "nguy-thu.ts", "bac-te-thu.ts", "chu-thu.ts",
-  "tuy-thu.ts", "nam-su.ts", "bac-su.ts", "cuu-duong-thu.ts",
-  "tan-duong-thu.ts", "cuu-ngu-dai-su.ts", "tan-ngu-dai-su.ts",
-  "tong-su.ts", "lieu-su.ts", "kim-su.ts", "nguyen-su.ts",
-  "minh-su.ts", "thanh-su-cao.ts", "tan-nguyen-su.ts",
-  "cong-duong-truyen.ts", "ta-truyen.ts", "coc-luong-truyen.ts",
-  "thuong-thu.ts", "dich-kinh.ts",
-  "nghi-le.ts", "chu-le.ts",
-];
-
-// Also scan all other library files not already in the list
-import { readdirSync } from "fs";
-const allLibFiles = readdirSync(LIBRARY_DIR).filter(f => f.endsWith(".ts"));
-for (const f of allLibFiles) {
-  if (!SCAN_FILES.includes(f)) SCAN_FILES.push(f);
+const SCAN_FILES = [];
+function collectTsFiles(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) collectTsFiles(path.join(dir, entry.name));
+    else if (entry.name.endsWith(".ts") && !["authors.ts", "works.ts", "annotations.ts"].includes(entry.name))
+      SCAN_FILES.push(path.join(dir, entry.name));
+  }
 }
+collectTsFiles(LIBRARY_DIR);
 
 function isCJK(code) {
   return (
@@ -54,10 +44,9 @@ console.log(`Dictionary covers ${dictSet.size} unique chars`);
 console.log("\nScanning library files...");
 const charFreq = new Map();
 
-for (const file of SCAN_FILES) {
-  const fpath = path.join(LIBRARY_DIR, file);
+for (const fpath of SCAN_FILES) {
   if (!fs.existsSync(fpath)) {
-    console.log(`  SKIP: ${file}`);
+    console.log(`  SKIP: ${fpath}`);
     continue;
   }
   const content = fs.readFileSync(fpath, "utf8");
@@ -69,7 +58,8 @@ for (const file of SCAN_FILES) {
       count++;
     }
   }
-  console.log(`  ${file}: ${count.toLocaleString()} CJK chars`);
+  const relPath = path.relative(LIBRARY_DIR, fpath);
+  console.log(`  ${relPath}: ${count.toLocaleString()} CJK chars`);
 }
 
 const totalUnique = charFreq.size;
