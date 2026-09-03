@@ -44,6 +44,18 @@ function StrokeWriter({ character, label }: { character: string; label?: string 
           outlineColor: resolve("--color-border-subtle", "#dcd3c4"),
           radicalColor: resolve("--color-accent-gold", "#a88c4a"),
           drawingColor: resolve("--color-accent-dark", "#7a6b3a"),
+          charDataLoader: (char: string, onComplete: (d: any) => void, onError: (e: unknown) => void) => {
+            fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${char}.json`)
+              .then(r => {
+                if (!r.ok) throw new Error(`${r.status}`);
+                return r.json();
+              })
+              .then(onComplete)
+              .catch(onError);
+          },
+          onLoadCharDataError: () => {
+            if (!cancelled) setHasData(false);
+          },
         });
         writerRef.current = writer;
       } catch {

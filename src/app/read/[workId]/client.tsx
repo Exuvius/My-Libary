@@ -2,8 +2,10 @@
 
 import { use, useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { getWorkById, getChaptersByWorkId, getSentencesByChapterId, sampleAnnotations, sampleComments, characters, toScript } from "@/lib/mock-data";
+import { getWorkById, getChaptersByWorkId, getSentencesByChapterId, sampleAnnotations, sampleComments, characters, toScript, toTraditional } from "@/lib/mock-data";
+import { LAZY_WORK_IDS, loadLazyWorkData } from "@/data/lazy-works";
 import { getAllDictEntries } from "@/lib/personal-db";
+import type { Chapter, Sentence } from "@/types/library";
 import { FABPanel } from "@/components/reading/FABPanel";
 import { CharTooltip } from "@/components/reading/CharTooltip";
 import { DividerBrush } from "@/components/ui/DividerBrush";
@@ -23,22 +25,49 @@ function ReadingContent({ workId }: { workId: string }) {
   const alignClass = textAlign === "center" ? "justify-center" : textAlign === "right" ? "justify-end" : "justify-start";
 
   const [personalDict, setPersonalDict] = useState<Map<string, PersonalDictEntry>>(new Map());
+  const [lazyChapters, setLazyChapters] = useState<Chapter[] | null>(null);
+  const [lazySentences, setLazySentences] = useState<Sentence[] | null>(null);
+  const [lazyLoading, setLazyLoading] = useState(false);
+  const isLazy = LAZY_WORK_IDS.has(workId);
+
   useEffect(() => {
     getAllDictEntries().then((entries) => {
       setPersonalDict(new Map(entries.map((e) => [e.text, e])));
     });
   }, []);
 
+  useEffect(() => {
+    if (!isLazy) return;
+    setLazyLoading(true);
+    loadLazyWorkData(workId).then((data) => {
+      if (data) {
+        setLazyChapters(data.chapters);
+        setLazySentences(data.sentences);
+      }
+      setLazyLoading(false);
+    });
+  }, [workId, isLazy]);
+
   const work = getWorkById(workId);
-  const allChapters = getChaptersByWorkId(workId);
+  const allChapters = isLazy ? (lazyChapters || []) : getChaptersByWorkId(workId);
   const chapter = chapterId
     ? allChapters.find((c) => c.id === chapterId)
     : allChapters[0];
-  const sentences = chapter ? getSentencesByChapterId(chapter.id) : [];
+  const sentences = chapter
+    ? (isLazy
+        ? (lazySentences || []).filter((s) => s.chapterId === chapter.id)
+        : getSentencesByChapterId(chapter.id))
+    : [];
 
   if (!work) {
     return (
       <div className="pt-20 text-center text-text-muted">Không tìm thấy tác phẩm.</div>
+    );
+  }
+
+  if (isLazy && lazyLoading) {
+    return (
+      <div className="pt-20 text-center text-text-ghost">Đang tải dữ liệu...</div>
     );
   }
 
@@ -59,7 +88,7 @@ function ReadingContent({ workId }: { workId: string }) {
       );
     }
 
-    const charData = charLookup.get(ch) || charLookupSimp.get(ch);
+    const charData = charLookup.get(ch) || charLookupSimp.get(ch) || charLookup.get(toTraditional(ch));
     const displayChar = scriptPreference === "simplified"
       ? (charData?.simplified || ch)
       : (charData?.traditional || ch);

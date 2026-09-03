@@ -1,18 +1,30 @@
 "use client";
 
-import { use } from "react";
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { getWorkById, getChaptersByWorkId, toScript } from "@/lib/mock-data";
+import { LAZY_WORK_IDS, loadLazyWorkData } from "@/data/lazy-works";
 import { Tag } from "@/components/ui/Tag";
 import { CornerOrnament } from "@/components/ui/CornerOrnament";
 import { DividerBrush } from "@/components/ui/DividerBrush";
 import { useAppStore } from "@/lib/store";
+import type { Chapter } from "@/types/library";
 
 export default function WorkDetailPage({ params }: { params: Promise<{ workId: string }> }) {
   const { workId } = use(params);
   const work = getWorkById(workId);
-  const chapters = getChaptersByWorkId(workId);
+  const isLazy = LAZY_WORK_IDS.has(workId);
+  const [lazyChapters, setLazyChapters] = useState<Chapter[] | null>(null);
   const scriptPreference = useAppStore((s) => s.scriptPreference);
+
+  useEffect(() => {
+    if (!isLazy) return;
+    loadLazyWorkData(workId).then((data) => {
+      if (data) setLazyChapters(data.chapters);
+    });
+  }, [workId, isLazy]);
+
+  const chapters = isLazy ? (lazyChapters || []) : getChaptersByWorkId(workId);
 
   if (!work) {
     return (

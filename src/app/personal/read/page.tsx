@@ -4,7 +4,7 @@ import { Suspense, useState, useEffect, useMemo, useRef, useCallback } from "rea
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { getDocument, getDocumentsByCollection, getAllDictEntries } from "@/lib/personal-db";
-import { characters } from "@/lib/mock-data";
+import { characters, toTraditional } from "@/lib/mock-data";
 import { useAppStore } from "@/lib/store";
 import { FABPanel } from "@/components/reading/FABPanel";
 import { PersonalCharTooltip } from "@/components/personal/PersonalCharTooltip";
@@ -72,6 +72,13 @@ function PersonalReadingContent() {
       setSiblings(docs.sort((a, b) => a.sortOrder - b.sortOrder));
     });
   }, [doc]);
+
+  useEffect(() => {
+    if (!doc?.collectionId || !docId) return;
+    try {
+      localStorage.setItem(`handien-last-read:${doc.collectionId}`, docId);
+    } catch {}
+  }, [doc, docId]);
 
   useEffect(() => {
     getAllDictEntries().then((entries) => {
@@ -211,7 +218,7 @@ function PersonalReadingContent() {
     }
 
     const charData =
-      charLookup.byTrad.get(ch) || charLookup.bySimp.get(ch);
+      charLookup.byTrad.get(ch) || charLookup.bySimp.get(ch) || charLookup.byTrad.get(toTraditional(ch));
     const pEntry = personalDict.get(ch);
 
     const displayChar =

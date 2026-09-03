@@ -34,6 +34,7 @@ function CollectionContent() {
   const [titleDraft, setTitleDraft] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [renderedCount, setRenderedCount] = useState(LIST_BATCH);
+  const [lastReadDocId, setLastReadDocId] = useState<string | null>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   const load = useCallback(async () => {
@@ -47,6 +48,21 @@ function CollectionContent() {
     ]);
     setCollection(col || null);
     setDocs(docList);
+    try {
+      const lastId = localStorage.getItem(`handien-last-read:${colId}`);
+      if (lastId && docList.some((d) => d.id === lastId)) {
+        const pos = localStorage.getItem(`handien-pos:${lastId}`);
+        if (pos && parseInt(pos) > 0) {
+          setLastReadDocId(lastId);
+        } else {
+          setLastReadDocId(null);
+        }
+      } else {
+        setLastReadDocId(null);
+      }
+    } catch {
+      setLastReadDocId(null);
+    }
     setLoading(false);
   }, [colId]);
 
@@ -59,6 +75,11 @@ function CollectionContent() {
     const q = searchQuery.toLowerCase();
     return docs.filter((d) => d.title.toLowerCase().includes(q));
   }, [docs, searchQuery]);
+
+  const lastReadDoc = useMemo(
+    () => (lastReadDocId ? docs.find((d) => d.id === lastReadDocId) : null),
+    [docs, lastReadDocId]
+  );
 
   const totalChars = useMemo(
     () => docs.reduce((sum, d) => sum + d.characterCount, 0),
@@ -208,6 +229,27 @@ function CollectionContent() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full px-3 py-2 rounded-xl bg-bg-secondary border border-border-subtle text-sm text-text-body placeholder:text-text-ghost focus:outline-none focus:border-accent-gold mb-3"
         />
+      )}
+
+      {/* Continue reading */}
+      {lastReadDoc && (
+        <Link
+          href={`/personal/read?id=${lastReadDoc.id}`}
+          className="flex items-center gap-3 mb-3 px-4 py-3 rounded-2xl bg-accent-gold/8 border border-accent-gold/25 hover:border-accent-gold/50 transition-colors"
+        >
+          <span className="w-8 h-8 rounded-lg bg-accent-gold/15 flex items-center justify-center text-accent-dark text-sm shrink-0">
+            ▶
+          </span>
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] text-text-muted">Tiếp tục đọc</p>
+            <p className="text-sm text-text-primary truncate">
+              {lastReadDoc.title}
+            </p>
+          </div>
+          <span className="text-[10px] text-text-ghost shrink-0">
+            Chương {lastReadDoc.sortOrder + 1}
+          </span>
+        </Link>
       )}
 
       {/* Chapter list */}

@@ -32,6 +32,9 @@ export default function ProfilePage() {
   const [collections, setCollections] = useState<PersonalCollection[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [libraryOpen, setLibraryOpen] = useState(false);
+  const [dictOpen, setDictOpen] = useState(false);
+  const [gameOpen, setGameOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [dictCount, setDictCount] = useState(0);
 
@@ -67,13 +70,27 @@ export default function ProfilePage() {
 
       {/* Personal Library — Collections */}
       <section className="mb-6">
-        <div className="flex items-center gap-2.5 mb-3">
+        <button
+          onClick={() => setLibraryOpen(!libraryOpen)}
+          className="w-full flex items-center gap-2.5 py-2 group"
+        >
           <span className="w-8 h-8 rounded-lg bg-accent-gold/15 flex items-center justify-center font-han-kai text-accent-dark text-[15px]">
             書
           </span>
-          <h2 className="flex-1 text-sm font-semibold text-text-primary">
+          <h2 className="flex-1 text-sm font-semibold text-text-primary text-left">
             Thư viện cá nhân
           </h2>
+          <span
+            className={`text-text-ghost text-xs transition-transform duration-200 ${
+              libraryOpen ? "rotate-90" : ""
+            }`}
+          >
+            ›
+          </span>
+        </button>
+
+        {libraryOpen && <>
+        <div className="flex justify-end mb-3 mt-1">
           <button
             onClick={() => setShowCreateModal(true)}
             className="text-xs font-medium text-accent-dark hover:underline"
@@ -149,22 +166,35 @@ export default function ProfilePage() {
             ))}
           </div>
         )}
+        </>}
       </section>
 
       {/* Personal Dictionary */}
       <section className="mb-6">
-        <div className="flex items-center gap-2.5 mb-3">
+        <button
+          onClick={() => setDictOpen(!dictOpen)}
+          className="w-full flex items-center gap-2.5 py-2 group"
+        >
           <span className="w-8 h-8 rounded-lg bg-accent-gold/15 flex items-center justify-center font-han-kai text-accent-dark text-[15px]">
             字
           </span>
-          <h2 className="flex-1 text-sm font-semibold text-text-primary">
+          <h2 className="flex-1 text-sm font-semibold text-text-primary text-left">
             Từ điển cá nhân
           </h2>
-          <span className="text-[11px] text-text-ghost">{dictCount} mục từ</span>
-        </div>
+          <span className="text-[11px] text-text-ghost mr-1">{dictCount} mục từ</span>
+          <span
+            className={`text-text-ghost text-xs transition-transform duration-200 ${
+              dictOpen ? "rotate-90" : ""
+            }`}
+          >
+            ›
+          </span>
+        </button>
+
+        {dictOpen && <>
         <Link
           href="/personal/dictionary"
-          className="flex items-center gap-3 p-3 rounded-2xl bg-bg-primary border border-border-subtle hover:border-border-main transition-colors"
+          className="flex items-center gap-3 p-3 mt-1 rounded-2xl bg-bg-primary border border-border-subtle hover:border-border-main transition-colors"
         >
           <span className="w-10 h-10 rounded-xl bg-bg-secondary flex items-center justify-center text-lg shrink-0 font-han-kai text-text-primary">
             字
@@ -179,6 +209,85 @@ export default function ProfilePage() {
           </div>
           <span className="text-text-ghost text-sm">›</span>
         </Link>
+        </>}
+      </section>
+
+      {/* Mini Game */}
+      <section className="mb-6">
+        <button
+          onClick={() => setGameOpen(!gameOpen)}
+          className="w-full flex items-center gap-2.5 py-2 group"
+        >
+          <span className="w-8 h-8 rounded-lg bg-accent-gold/15 flex items-center justify-center text-[15px]">
+            🎵
+          </span>
+          <h2 className="flex-1 text-sm font-semibold text-text-primary text-left">
+            Mini Game
+          </h2>
+          <span
+            className={`text-text-ghost text-xs transition-transform duration-200 ${
+              gameOpen ? "rotate-90" : ""
+            }`}
+          >
+            ›
+          </span>
+        </button>
+
+        {gameOpen && <>
+        <div className="space-y-2 mt-1">
+          <Link
+            href="/personal/tone-game"
+            className="flex items-center gap-3 p-3 rounded-2xl bg-bg-primary border border-border-subtle hover:border-border-main transition-colors"
+          >
+            <span className="w-10 h-10 rounded-xl bg-bg-secondary flex items-center justify-center text-lg shrink-0">
+              🎵
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-text-primary">
+                Đoán Thanh Điệu
+              </p>
+              <p className="text-[11px] text-text-faint">
+                Chọn thanh điệu đúng cho chữ Hán · 5 thanh · 3 mạng
+              </p>
+            </div>
+            <span className="text-text-ghost text-sm">›</span>
+          </Link>
+          <Link
+            href="/personal/word-chain"
+            className="flex items-center gap-3 p-3 rounded-2xl bg-bg-primary border border-border-subtle hover:border-border-main transition-colors"
+          >
+            <span className="w-10 h-10 rounded-xl bg-bg-secondary flex items-center justify-center text-lg shrink-0">
+              🔗
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-text-primary">
+                Nối Từ
+              </p>
+              <p className="text-[11px] text-text-faint">
+                Nối từ ghép 2 chữ: chữ cuối → chữ đầu · 3 lần thử
+              </p>
+            </div>
+            <span className="text-text-ghost text-sm">›</span>
+          </Link>
+          <Link
+            href="/personal/write-game"
+            className="flex items-center gap-3 p-3 rounded-2xl bg-bg-primary border border-border-subtle hover:border-border-main transition-colors"
+          >
+            <span className="w-10 h-10 rounded-xl bg-bg-secondary flex items-center justify-center text-lg shrink-0">
+              ✍️
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-text-primary">
+                Viết Chữ
+              </p>
+              <p className="text-[11px] text-text-faint">
+                Nhìn nghĩa, viết đúng chữ Hán · 3 mạng
+              </p>
+            </div>
+            <span className="text-text-ghost text-sm">›</span>
+          </Link>
+        </div>
+        </>}
       </section>
 
       {/* Cài đặt */}

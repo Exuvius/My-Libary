@@ -12,6 +12,7 @@ export interface Character {
   simplified?: string;
   radicalId?: string;
   strokeCount: number;
+  hskLevel?: number;
 }
 
 export interface Reading {
@@ -51,6 +52,7 @@ export interface Entry {
   pinyin?: string;
   definition: string;
   entryType: EntryType;
+  hskLevel?: number;
   specializedCategory?: string;
   notes?: string;
 }

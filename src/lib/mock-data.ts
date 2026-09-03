@@ -15,8 +15,11 @@ import {
   ttkSentences, lnSentences, ttvSentences, bgtSentences, poetSentences,
   ttkChapters, lnChapters, ttvChapters, bgtChapters, poetChapters,
   ddkSentences, ddkChapters,
+  dkSentences, dkChapters,
 } from "@/data";
+import { simpToTrad as dataSimpToTrad } from "@/data/simp-trad";
 import { dataAnnotations } from "@/data/library/annotations";
+import { dkAnnotations } from "@/data/library/dich-kinh";
 
 // ===== TAGS =====
 export const tags: Tag[] = [
@@ -132,6 +135,7 @@ export const kiemGiaSentences: Sentence[] = [
 // ===== ANNOTATIONS & COMMENTS =====
 export const sampleAnnotations: Annotation[] = [
   ...dataAnnotations,
+  ...dkAnnotations,
   { id: "an1", sentenceId: "s1", level: "sentence", content: "Hai câu đầu tả cảnh thu: lau sậy xanh rì, sương trắng đọng thành giá. Cảnh vật gợi không khí hoang vắng, mênh mang." },
   { id: "an2", sentenceId: "s2", level: "sentence", content: "'Y nhân' (伊人) — người ấy. Có nhiều thuyết: Mao Thi cho là ẩn dụ hiền tài không gặp thời; thuyết khác cho là người yêu." },
 ];
@@ -174,18 +178,12 @@ const tradToSimp = new Map(
     .map((c) => [c.traditional, c.simplified!])
 );
 
-const simpToTrad = new Map(
-  realCharacters
-    .filter((c) => c.simplified && c.simplified !== c.traditional)
-    .map((c) => [c.simplified!, c.traditional])
-);
-
 export function toSimplified(text: string): string {
   return [...text].map((ch) => tradToSimp.get(ch) || ch).join("");
 }
 
 export function toTraditional(text: string): string {
-  return [...text].map((ch) => simpToTrad.get(ch) || ch).join("");
+  return [...text].map((ch) => dataSimpToTrad[ch] || ch).join("");
 }
 
 export function toScript(text: string, script: "traditional" | "simplified"): string {
@@ -228,8 +226,8 @@ export function getTagsByCategory(category: string): Tag[] {
 
 // Flatten all works' sentences/chapters into single arrays for corpus-wide search.
 // Used by getCitationsForCharacter() to find example usages across the entire library.
-const _allCorpusSentences = [...ttkSentences, ...lnSentences, ...ttvSentences, ...bgtSentences, ...poetSentences, ...ddkSentences, ...kiemGiaSentences];
-const _allCorpusChapters = [...ttkChapters, ...lnChapters, ...ttvChapters, ...bgtChapters, ...poetChapters, ...ddkChapters, ...kinhThiChapters];
+const _allCorpusSentences = [...ttkSentences, ...lnSentences, ...ttvSentences, ...bgtSentences, ...poetSentences, ...ddkSentences, ...dkSentences, ...kiemGiaSentences];
+const _allCorpusChapters = [...ttkChapters, ...lnChapters, ...ttvChapters, ...bgtChapters, ...poetChapters, ...ddkChapters, ...dkChapters, ...kinhThiChapters];
 const _chapterMap = new Map(_allCorpusChapters.map(c => [c.id, c]));
 
 export interface CitationResult {
