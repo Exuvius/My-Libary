@@ -7,11 +7,6 @@ import { entries as realEntries } from "@/data/entries";
 import { dataAuthors } from "@/data/library/authors";
 import { dataWorks } from "@/data/library/works";
 import {
-  getChaptersByWorkId as getChaptersFromData,
-  getSentencesByChapterId as getSentencesFromData,
-  getOverrides,
-} from "@/data";
-import {
   ttkSentences, lnSentences, ttvSentences, bgtSentences, poetSentences,
   ttkChapters, lnChapters, ttvChapters, bgtChapters, poetChapters,
   ddkSentences, ddkChapters,
@@ -195,23 +190,6 @@ export function toScript(text: string, script: "traditional" | "simplified"): st
   return script === "simplified" ? toSimplified(text) : toTraditional(text);
 }
 
-export function getChaptersByWorkId(workId: string): Chapter[] {
-  const fromData = getChaptersFromData(workId);
-  if (fromData.length > 0) return fromData;
-  if (workId === "w1") return kinhThiChapters;
-  return [];
-}
-
-export function getSentencesByChapterId(chapterId: string): Sentence[] {
-  const fromData = getSentencesFromData(chapterId);
-  if (fromData.length > 0) return fromData;
-  if (chapterId === "ch4") return kiemGiaSentences;
-  return [];
-}
-
-export function getSentenceOverrides(sentenceId: string): Record<string, [string, string, string]> | undefined {
-  return getOverrides(sentenceId);
-}
 
 // Find all compound/idiom/specialized entries that contain this character.
 // Checks both simplified and traditional forms to catch all variants.

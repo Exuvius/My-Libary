@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { getDictEntryByText } from "@/lib/personal-db";
@@ -18,7 +18,7 @@ interface CharTooltipProps {
   personalEntry?: PersonalDictEntry;
 }
 
-export function CharTooltip({
+export const CharTooltip = memo(function CharTooltip({
   character,
   hanViet,
   pinyin,
@@ -194,4 +194,4 @@ export function CharTooltip({
       )}
     </span>
   );
-}
+});
