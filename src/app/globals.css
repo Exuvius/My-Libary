@@ -230,6 +230,23 @@ ruby rt.hanviet {
   font-family: var(--font-pinyin);
 }
 
+/* ===== READING TOGGLE VISIBILITY (CSS-driven, avoids React re-render) ===== */
+.reading-wrap:not(.show-pinyin) .ruby-pinyin { display: none !important; }
+.reading-wrap:not(.show-hanviet) .ruby-hanviet { display: none !important; }
+.reading-wrap:not(.show-pinyin):not(.show-hanviet) .ruby-row { display: none !important; }
+.reading-wrap:not(.show-translation) .sent-translation { display: none !important; }
+.reading-wrap:not(.show-annotations) .sent-annotation,
+.reading-wrap:not(.show-annotations) .sent-annot-dot { display: none !important; }
+.reading-wrap:not(.show-comments) .sent-comment { display: none !important; }
+.reading-wrap.show-highlight .char-unknown {
+  background: rgb(239 68 68 / 0.15);
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgb(248 113 113 / 0.4);
+}
+.reading-wrap .sentence-chars { gap: 2px; }
+.reading-wrap.show-pinyin .sentence-chars,
+.reading-wrap.show-hanviet .sentence-chars { gap: 6px 4px; }
+
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 6px;

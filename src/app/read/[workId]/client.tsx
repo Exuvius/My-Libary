@@ -1,17 +1,23 @@
 "use client";
 
-import { use, useState, useEffect, Suspense } from "react";
+import { use, useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
-import { getWorkById, getChaptersByWorkId, getSentencesByChapterId, sampleAnnotations, sampleComments, characters, toScript, toTraditional } from "@/lib/mock-data";
-import { LAZY_WORK_IDS, loadLazyWorkData } from "@/data/lazy-works";
+import { getWorkById, sampleAnnotations, sampleComments, characters, toScript, toTraditional } from "@/lib/mock-data";
+import { loadChapters, loadChapterContent } from "@/lib/book-loader";
 import { getAllDictEntries } from "@/lib/personal-db";
-import type { Chapter, Sentence } from "@/types/library";
+import type { Chapter, Sentence, Annotation } from "@/types/library";
 import { FABPanel } from "@/components/reading/FABPanel";
 import { CharTooltip } from "@/components/reading/CharTooltip";
 import { DividerBrush } from "@/components/ui/DividerBrush";
 import { useAppStore } from "@/lib/store";
 import { useSearchParams } from "next/navigation";
 import type { PersonalDictEntry } from "@/types/personal";
+
+const charLookup = new Map(characters.map((c) => [c.traditional, c]));
+const charLookupSimp = new Map(
+  characters.filter((c) => c.simplified && c.simplified !== c.traditional)
+    .map((c) => [c.simplified!, c])
+);
 
 function ReadingContent({ workId }: { workId: string }) {
   const searchParams = useSearchParams();
@@ -21,14 +27,12 @@ function ReadingContent({ workId }: { workId: string }) {
   const scriptPreference = useAppStore((s) => s.scriptPreference);
   const textAlign = useAppStore((s) => s.textAlign);
   const fontClass = fontPreference === "kai" ? "font-han-kai" : fontPreference === "gothic" ? "font-han-hei" : "font-han-ming";
-  const rubyActive = toggles.hanViet || toggles.pinyin;
   const alignClass = textAlign === "center" ? "justify-center" : textAlign === "right" ? "justify-end" : "justify-start";
 
   const [personalDict, setPersonalDict] = useState<Map<string, PersonalDictEntry>>(new Map());
-  const [lazyChapters, setLazyChapters] = useState<Chapter[] | null>(null);
-  const [lazySentences, setLazySentences] = useState<Sentence[] | null>(null);
-  const [lazyLoading, setLazyLoading] = useState(false);
-  const isLazy = LAZY_WORK_IDS.has(workId);
+  const [allChapters, setAllChapters] = useState<Chapter[]>([]);
+  const [sentences, setSentences] = useState<Sentence[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getAllDictEntries().then((entries) => {
@@ -37,105 +41,75 @@ function ReadingContent({ workId }: { workId: string }) {
   }, []);
 
   useEffect(() => {
-    if (!isLazy) return;
-    setLazyLoading(true);
-    loadLazyWorkData(workId).then((data) => {
-      if (data) {
-        setLazyChapters(data.chapters);
-        setLazySentences(data.sentences);
-      }
-      setLazyLoading(false);
+    setLoading(true);
+    loadChapters(workId).then((chs) => {
+      setAllChapters(chs);
+      setLoading(false);
     });
-  }, [workId, isLazy]);
+  }, [workId]);
 
-  const work = getWorkById(workId);
-  const allChapters = isLazy ? (lazyChapters || []) : getChaptersByWorkId(workId);
   const chapter = chapterId
     ? allChapters.find((c) => c.id === chapterId)
     : allChapters[0];
-  const sentences = chapter
-    ? (isLazy
-        ? (lazySentences || []).filter((s) => s.chapterId === chapter.id)
-        : getSentencesByChapterId(chapter.id))
-    : [];
 
-  if (!work) {
-    return (
-      <div className="pt-20 text-center text-text-muted">Không tìm thấy tác phẩm.</div>
+  useEffect(() => {
+    if (!chapter) { setSentences([]); return; }
+    loadChapterContent(workId, chapter.id).then((data) => {
+      setSentences(data.sentences);
+    });
+  }, [workId, chapter?.id]);
+
+  const work = getWorkById(workId);
+
+  const wrapClass = [
+    "reading-wrap",
+    toggles.pinyin && "show-pinyin",
+    toggles.hanViet && "show-hanviet",
+    toggles.translation && "show-translation",
+    toggles.annotations && "show-annotations",
+    toggles.comments && "show-comments",
+    toggles.highlightUnknown && "show-highlight",
+  ].filter(Boolean).join(" ");
+
+  const renderedSentences = useMemo(() => {
+    const annots = sampleAnnotations.filter((a) =>
+      sentences.some((s) => s.id === a.sentenceId)
     );
-  }
-
-  if (isLazy && lazyLoading) {
-    return (
-      <div className="pt-20 text-center text-text-ghost">Đang tải dữ liệu...</div>
+    const cmts = sampleComments.filter((c) =>
+      sentences.some((s) => s.id === c.sentenceId)
     );
-  }
 
-  // Pre-index ~3900 characters by traditional AND simplified form for O(1) lookup
-  const charLookup = new Map(characters.map((c) => [c.traditional, c]));
-  const charLookupSimp = new Map(
-    characters.filter((c) => c.simplified && c.simplified !== c.traditional)
-      .map((c) => [c.simplified!, c])
-  );
-
-  const renderChar = (ch: string, idx: number, sentence: (typeof sentences)[0]) => {
-    // CJK punctuation rendered without tooltip or ruby — just styled differently
-    if (/[，。、；：！？「」『』（）\s]/.test(ch)) {
-      return (
-        <span key={idx} className="text-text-muted">
-          {ch}
-        </span>
-      );
-    }
-
-    const charData = charLookup.get(ch) || charLookupSimp.get(ch) || charLookup.get(toTraditional(ch));
-    const displayChar = scriptPreference === "simplified"
-      ? (charData?.simplified || ch)
-      : (charData?.traditional || ch);
-    const reading = charData?.readings[0];
-    const meaning = reading?.meanings[0];
-
-    const rubyContent = (
-      <span className="inline-block text-center">
-        {(toggles.pinyin || toggles.hanViet) && (
-          <span className="block text-[9.5px] leading-tight mb-0.5">
-            {toggles.pinyin && reading && (
-              <span className="text-pinyin italic block">{reading.pinyin}</span>
-            )}
-            {toggles.hanViet && reading && (
-              <span className="text-hanviet block">{reading.hanViet}</span>
-            )}
+    const renderChar = (ch: string, idx: number) => {
+      if (/[，。、；：！？「」『』（）\s]/.test(ch)) {
+        return (
+          <span key={idx} className="text-text-muted">
+            {ch}
           </span>
-        )}
-        <span className="text-[20px] leading-snug">{displayChar}</span>
-      </span>
-    );
+        );
+      }
 
-    const pEntry = personalDict.get(ch);
+      const charData = charLookup.get(ch) || charLookupSimp.get(ch) || charLookup.get(toTraditional(ch));
+      const displayChar = scriptPreference === "simplified"
+        ? (charData?.simplified || ch)
+        : (charData?.traditional || ch);
+      const reading = charData?.readings[0];
+      const meaning = reading?.meanings[0];
+      const pEntry = personalDict.get(ch);
+      const pinyinText = reading?.pinyin || pEntry?.pinyin;
+      const hanVietText = reading?.hanViet || pEntry?.hanViet;
+      const hasData = !!(charData || pEntry);
 
-    if (charData || pEntry) {
-      const pinyinRuby = reading?.pinyin || pEntry?.pinyin;
-      const hanVietRuby = reading?.hanViet || pEntry?.hanViet;
-
-      const rubyContentWithPersonal = (
+      const inner = (
         <span className="inline-block text-center">
-          {(toggles.pinyin || toggles.hanViet) && (
-            <span className="block text-[9.5px] leading-tight mb-0.5">
-              {toggles.pinyin && pinyinRuby && (
-                <span className="text-pinyin italic block">{pinyinRuby}</span>
-              )}
-              {toggles.hanViet && hanVietRuby && (
-                <span className="text-hanviet block">{hanVietRuby}</span>
-              )}
-              {!pinyinRuby && toggles.pinyin && !toggles.hanViet && (
-                <span className="block opacity-0">·</span>
-              )}
-              {!hanVietRuby && toggles.hanViet && !toggles.pinyin && (
-                <span className="block opacity-0">·</span>
-              )}
-            </span>
-          )}
-          <span className="text-[20px] leading-snug">{displayChar}</span>
+          <span className={`ruby-row block text-[9.5px] leading-tight mb-0.5${hasData ? "" : " opacity-0"}`}>
+            {pinyinText
+              ? <span className="ruby-pinyin text-pinyin italic block">{pinyinText}</span>
+              : <span className="ruby-pinyin block opacity-0">·</span>}
+            {hanVietText
+              ? <span className="ruby-hanviet text-hanviet block">{hanVietText}</span>
+              : <span className="ruby-hanviet block opacity-0">·</span>}
+          </span>
+          <span className={`text-[20px] leading-snug${hasData ? "" : " char-unknown"}`}>{displayChar}</span>
         </span>
       );
 
@@ -150,36 +124,86 @@ function ReadingContent({ workId }: { workId: string }) {
           charId={charData?.id}
           personalEntry={pEntry}
         >
-          {rubyContentWithPersonal}
+          {inner}
         </CharTooltip>
       );
-    }
+    };
 
-    const unknownHighlight = toggles.highlightUnknown
-      ? "bg-red-500/15 rounded-sm ring-1 ring-red-400/40"
-      : "";
+    return sentences.map((sentence, sIdx) => {
+      const sentAnnotations = annots.filter((a) => a.sentenceId === sentence.id);
+      const sentComments = cmts.filter((c) => c.sentenceId === sentence.id);
+      const showNewParagraph =
+        sIdx > 0 &&
+        sentence.paragraphGroup !== sentences[sIdx - 1].paragraphGroup;
 
-    return (
-      <CharTooltip key={idx} character={ch} personalEntry={pEntry}>
-        <span className="inline-block text-center">
-          {(toggles.pinyin || toggles.hanViet) && (
-            <span className="block text-[9.5px] leading-tight mb-0.5 opacity-0">
-              {toggles.pinyin && <span className="block">·</span>}
-              {toggles.hanViet && <span className="block">·</span>}
-            </span>
+      return (
+        <div key={sentence.id} className={showNewParagraph ? "mt-8" : "mt-4"}>
+          <div className={`sentence-chars flex flex-wrap items-end tracking-wide leading-loose relative ${fontClass} ${alignClass}`}>
+            {sentAnnotations.length > 0 && (
+              <span className="sent-annot-dot absolute -left-3 top-1/2 -translate-y-1/2 w-[7px] h-[7px] rounded-full bg-accent-gold" />
+            )}
+            {sentence.textTraditional.split("").map((ch, i) => renderChar(ch, i))}
+          </div>
+
+          {sentence.translation && (
+            <p className="sent-translation text-sm text-text-muted italic mt-1.5 leading-relaxed">
+              {sentence.translation}
+            </p>
           )}
-          <span className={`text-[20px] leading-snug ${unknownHighlight}`}>{displayChar}</span>
-        </span>
-      </CharTooltip>
-    );
-  };
 
-  const annotations = sampleAnnotations.filter((a) =>
-    sentences.some((s) => s.id === a.sentenceId)
-  );
-  const comments = sampleComments.filter((c) =>
-    sentences.some((s) => s.id === c.sentenceId)
-  );
+          {sentAnnotations.map((ann) => (
+            <div
+              key={ann.id}
+              className="sent-annotation mt-2 rounded-r-lg border-l-[3px] border-annotation-border bg-annotation-bg px-3 py-2"
+            >
+              <p className="text-[10px] text-accent-gold uppercase tracking-wider font-semibold mb-1">
+                CHÚ GIẢI
+              </p>
+              <p className="text-xs text-text-body leading-relaxed">
+                {ann.content}
+              </p>
+            </div>
+          ))}
+
+          {sentComments.map((comment) => (
+            <div
+              key={comment.id}
+              className="sent-comment mt-2 rounded-r-lg border-l-[3px] border-comment-border bg-comment-bg px-3 py-2"
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-5 h-5 rounded-full bg-bg-secondary flex items-center justify-center">
+                  <span className="text-[10px] text-text-faint">
+                    {comment.userName?.[0]}
+                  </span>
+                </div>
+                <span className="text-[11px] font-medium text-comment-text">
+                  {comment.userName}
+                </span>
+                <span className="text-[10px] text-text-ghost">
+                  {new Date(comment.createdAt).toLocaleDateString("vi-VN")}
+                </span>
+              </div>
+              <p className="text-xs text-comment-text leading-relaxed">
+                {comment.content}
+              </p>
+            </div>
+          ))}
+        </div>
+      );
+    });
+  }, [sentences, personalDict, scriptPreference, fontClass, alignClass]);
+
+  if (!work) {
+    return (
+      <div className="pt-20 text-center text-text-muted">Không tìm thấy tác phẩm.</div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="pt-20 text-center text-text-ghost">Đang tải dữ liệu...</div>
+    );
+  }
 
   return (
     <>
@@ -211,85 +235,9 @@ function ReadingContent({ workId }: { workId: string }) {
         </div>
       )}
 
-      {/* Sentences */}
-      <div className="max-w-2xl mx-auto px-4 pb-20">
-        {sentences.map((sentence, sIdx) => {
-          const sentAnnotations = annotations.filter(
-            (a) => a.sentenceId === sentence.id
-          );
-          const sentComments = comments.filter(
-            (c) => c.sentenceId === sentence.id
-          );
-          // paragraphGroup groups sentences into stanzas/paragraphs — a change
-          // in group number inserts extra vertical space (mt-8 vs mt-4)
-          const showNewParagraph =
-            sIdx > 0 &&
-            sentence.paragraphGroup !== sentences[sIdx - 1].paragraphGroup;
-
-          return (
-            <div key={sentence.id} className={showNewParagraph ? "mt-8" : "mt-4"}>
-              {/* Main text */}
-              <div className={`flex flex-wrap items-end tracking-wide leading-loose relative ${fontClass} ${alignClass} ${rubyActive ? "gap-x-[6px] gap-y-1" : "gap-x-[2px]"}`}>
-                {toggles.annotations &&
-                  sentAnnotations.length > 0 && (
-                    <span className="absolute -left-3 top-1/2 -translate-y-1/2 w-[7px] h-[7px] rounded-full bg-accent-gold" />
-                  )}
-                {sentence.textTraditional.split("").map((ch, i) =>
-                  renderChar(ch, i, sentence)
-                )}
-              </div>
-
-              {/* Translation */}
-              {toggles.translation && sentence.translation && (
-                <p className="text-sm text-text-muted italic mt-1.5 leading-relaxed">
-                  {sentence.translation}
-                </p>
-              )}
-
-              {/* Annotations */}
-              {toggles.annotations &&
-                sentAnnotations.map((ann) => (
-                  <div
-                    key={ann.id}
-                    className="mt-2 rounded-r-lg border-l-[3px] border-annotation-border bg-annotation-bg px-3 py-2"
-                  >
-                    <p className="text-[10px] text-accent-gold uppercase tracking-wider font-semibold mb-1">
-                      CHÚ GIẢI
-                    </p>
-                    <p className="text-xs text-text-body leading-relaxed">
-                      {ann.content}
-                    </p>
-                  </div>
-                ))}
-
-              {/* Comments */}
-              {toggles.comments &&
-                sentComments.map((comment) => (
-                  <div
-                    key={comment.id}
-                    className="mt-2 rounded-r-lg border-l-[3px] border-comment-border bg-comment-bg px-3 py-2"
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-5 h-5 rounded-full bg-bg-secondary flex items-center justify-center">
-                        <span className="text-[10px] text-text-faint">
-                          {comment.userName?.[0]}
-                        </span>
-                      </div>
-                      <span className="text-[11px] font-medium text-comment-text">
-                        {comment.userName}
-                      </span>
-                      <span className="text-[10px] text-text-ghost">
-                        {new Date(comment.createdAt).toLocaleDateString("vi-VN")}
-                      </span>
-                    </div>
-                    <p className="text-xs text-comment-text leading-relaxed">
-                      {comment.content}
-                    </p>
-                  </div>
-                ))}
-            </div>
-          );
-        })}
+      {/* Sentences — CSS-driven toggle visibility for instant switching */}
+      <div className={`max-w-2xl mx-auto px-4 pb-20 ${wrapClass}`}>
+        {renderedSentences}
 
         {sentences.length === 0 && (
           <p className="text-center text-text-ghost text-sm py-20">
